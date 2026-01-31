@@ -61,7 +61,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 0; /* Reset padding for mobile full width */
+            padding: 0;
             overflow-y: auto;
         }
 
@@ -110,7 +110,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Mobile text size adjustments */
         @media (max-width: 640px) {
             h1 { font-size: 1.75rem; }
             h2 { font-size: 1.1rem; }
@@ -140,11 +139,7 @@
             <!-- Header e Logo -->
             <div class="text-center mb-6 md:mb-10 relative z-10 pt-8 md:pt-0">
                 <div class="mb-4 md:mb-5 flex justify-center">
-                    
-                    <!-- *** LOGO AGGIORNATO *** -->
-                    <!-- L'animazione di sfondo userà AUTOMATICAMENTE questa immagine Levi.png -->
-                    <img id="school-logo-img" src="levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
-                    
+                    <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
                 </div>
 
                 <div class="space-y-1">
@@ -174,17 +169,6 @@
                     </ul>
                 </div>
 
-                <!-- MESSAGGIO RICEVUTA OBBLIGATORIA (ROSSO) -->
-                <div class="bg-yellow-50 border-l-8 border-red-500 p-3 md:p-4 max-w-2xl mx-auto shadow-md rounded-r-xl flex items-center justify-center space-x-3 md:space-x-4 mb-4 transform hover:scale-105 transition-transform duration-300">
-                    <i class="fas fa-ticket-alt text-2xl md:text-3xl text-red-600 animate-pulse"></i>
-                    <div class="text-left">
-                        <span class="block text-red-700 font-black text-base md:text-lg uppercase leading-none">
-                            Ricevuta Obbligatoria
-                        </span>
-                        <span class="text-[10px] md:text-xs text-red-500 font-bold uppercase">Da presentare all'ingresso (digitale o cartacea)</span>
-                    </div>
-                </div>
-
                 <!-- Status Database & Counter -->
                 <div id="db-status" class="text-xs font-bold text-gray-400 opacity-80 mb-2">
                     <i class="fas fa-circle text-yellow-400 mr-1"></i> Connessione Database...
@@ -194,10 +178,11 @@
                 </div>
             </div>
 
+            <!-- GRID PRINCIPALE: Info prima, Form dopo -->
             <div class="grid lg:grid-cols-2 gap-8 md:gap-16 relative z-10">
                 
-                <!-- Colonna Info -->
-                <div class="space-y-6 md:space-y-8 flex flex-col justify-center order-2 lg:order-1">
+                <!-- Colonna Info (Descrizione Indirizzi) -->
+                <div class="space-y-6 md:space-y-8 flex flex-col justify-center">
                     <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl md:rounded-3xl p-5 md:p-8 border border-blue-100 shadow-lg">
                         <h2 class="text-xl md:text-3xl font-bold text-blue-900 mb-4 flex items-center">
                             <i class="fas fa-door-open mr-3 text-blue-500"></i> Il tuo Futuro Inizia Qui!
@@ -229,8 +214,8 @@
                     </div>
                 </div>
 
-                <!-- Colonna Form -->
-                <div class="order-1 lg:order-2">
+                <!-- Colonna Form (Prenotazione) -->
+                <div>
                     <!-- Messaggio SOLD OUT (Nascosto di default) -->
                     <div id="sold-out-msg" class="hidden bg-red-100 border-l-8 border-red-600 p-8 rounded-2xl shadow-xl text-center">
                         <i class="fas fa-ban text-5xl text-red-600 mb-4"></i>
@@ -263,6 +248,13 @@
                                     <label class="block text-[10px] md:text-xs font-bold text-gray-500 mb-1 uppercase">Cellulare</label>
                                     <input type="tel" id="cellulare" required class="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none text-gray-700 text-sm" placeholder="333...">
                                 </div>
+                            </div>
+
+                            <!-- NUOVO CAMPO: Numero Partecipanti -->
+                            <div>
+                                <label class="block text-[10px] md:text-xs font-bold text-gray-500 mb-1 uppercase">Numero Partecipanti (incluso studente)</label>
+                                <input type="number" id="partecipanti" min="1" max="5" value="1" required class="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-gray-700 text-sm" placeholder="Es. 3">
+                                <p class="text-[10px] text-gray-400 mt-1">Massimo 5 persone per famiglia.</p>
                             </div>
 
                             <div>
@@ -392,6 +384,10 @@
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Scuola</span>
                                 <span id="paper-class" class="font-bold text-gray-800 text-sm md:text-base">Nome Scuola</span>
                             </div>
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Partecipanti</span>
+                                <span id="paper-pax" class="font-bold text-gray-800 text-sm md:text-base">1</span>
+                            </div>
                             <div class="flex flex-col pt-2">
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase mb-1">Indirizzo Scelto</span>
                                 <span id="paper-course" class="font-bold text-blue-600 text-base md:text-lg">Liceo Scientifico</span>
@@ -520,6 +516,7 @@
                                     <th class="p-4 text-sm">Codice</th>
                                     <th class="p-4 text-sm">Studente</th>
                                     <th class="p-4 text-sm">Contatti</th>
+                                    <th class="p-4 text-sm">Pax</th>
                                     <th class="p-4 text-sm">Scuola</th>
                                     <th class="p-4 text-sm">Indirizzo</th>
                                     <th class="p-4 text-sm text-center">Azioni</th>
@@ -610,6 +607,7 @@
             document.getElementById('paper-student').innerText = `${data.cognome} ${data.nome}`;
             document.getElementById('paper-class').innerText = `${data.scuola}`; 
             document.getElementById('paper-course').innerText = data.indirizzo;
+            document.getElementById('paper-pax').innerText = data.partecipanti;
             document.getElementById('instruction-code').innerText = data.codice_prenotazione;
             
             document.getElementById('success-overlay').style.display = 'flex';
@@ -644,6 +642,7 @@
                 cognome: document.getElementById('cognome').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 cellulare: document.getElementById('cellulare').value.trim(),
+                partecipanti: document.getElementById('partecipanti').value,
                 scuola: document.getElementById('scuola').value.trim(),
                 indirizzo: document.getElementById('indirizzo').value,
                 codice_prenotazione: generatedCode,
@@ -763,6 +762,7 @@
                     <th class="p-4 text-sm">Codice</th>
                     <th class="p-4 text-sm">Studente</th>
                     <th class="p-4 text-sm">Contatti</th>
+                    <th class="p-4 text-sm">Pax</th>
                     <th class="p-4 text-sm">Scuola</th>
                     <th class="p-4 text-sm">Indirizzo</th>
                     <th class="p-4 text-sm text-center">Azioni</th>
@@ -869,6 +869,7 @@
                                 <div>${b.email}</div>
                                 <div>${b.cellulare}</div>
                             </td>
+                            <td class="p-4 text-center font-bold">${b.partecipanti || '1'}</td>
                             <td class="p-4 truncate max-w-[150px]">${b.scuola}</td>
                             <td class="p-4 text-blue-600 font-semibold">${b.indirizzo}</td>
                             <td class="p-4 text-center">
@@ -918,9 +919,9 @@
 
         document.getElementById('exportExcelBtn').addEventListener('click', () => {
             if(allBookingsData.length === 0) return alert("Nessun dato.");
-            let csv = "data:text/csv;charset=utf-8,Codice;Cognome;Nome;Email;Cellulare;Scuola;Indirizzo\r\n";
+            let csv = "data:text/csv;charset=utf-8,Codice;Cognome;Nome;Email;Cellulare;Pax;Scuola;Indirizzo\r\n";
             allBookingsData.forEach(r => {
-                csv += `${r.codice_prenotazione};${r.cognome};${r.nome};${r.email};${r.cellulare};${r.scuola};${r.indirizzo}\r\n`;
+                csv += `${r.codice_prenotazione};${r.cognome};${r.nome};${r.email};${r.cellulare};${r.partecipanti || 1};${r.scuola};${r.indirizzo}\r\n`;
             });
             const link = document.createElement("a");
             link.href = encodeURI(csv);
@@ -1005,6 +1006,7 @@
 
             addLine("DATA OPEN DAY:", "9 Maggio 2026");
             addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
+            addLine("PARTECIPANTI:", `${currentBookingData.partecipanti}`);
             addLine("SCUOLA:", `${currentBookingData.scuola}`); 
             addLine("CONTATTO:", currentBookingData.email);
             y += 5; doc.setFont("helvetica", "bold"); doc.text("INDIRIZZO SCELTO:", 30, y);
