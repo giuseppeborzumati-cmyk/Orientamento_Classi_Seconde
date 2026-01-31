@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Day 2026 - ITSCG Primo Levi Seregno</title>
+    <title>Open Day 2026 - ITSCG "Primo Levi" Seregno</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +36,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
         }
 
         /* Glassmorphism Card */
@@ -45,7 +45,7 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         /* Overlay di successo fisso */
@@ -56,13 +56,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 46, 0.98); /* Sfondo scuro quasi opaco */
+            background: rgba(26, 26, 46, 0.98);
             z-index: 99999;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            overflow-y: auto; /* Scroll abilitato */
+            overflow-y: auto;
         }
 
         /* Stile Foglio A4 a Video */
@@ -137,10 +137,6 @@
                 </button>
             </div>
 
-            <!-- Decorazioni Cerchi -->
-            <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-300 rounded-full opacity-50 blur-2xl animate-pulse"></div>
-            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-300 rounded-full opacity-50 blur-2xl animate-pulse"></div>
-
             <!-- Header e Logo -->
             <div class="text-center mb-6 md:mb-10 relative z-10 pt-8 md:pt-0">
                 <div class="mb-4 md:mb-5 flex justify-center">
@@ -155,26 +151,34 @@
                         ISTRUZIONE TECNICA E LICEALE
                     </h2>
                 </div>
-                <p class="text-xs md:text-sm text-gray-500 font-semibold tracking-wide uppercase mb-6 md:mb-8 border-t border-gray-200 inline-block px-4 md:px-8 py-2">
+                <p class="text-xs md:text-sm text-gray-500 font-semibold tracking-wide uppercase mb-6 border-t border-gray-200 inline-block px-4 md:px-8 py-2">
                     Via Briantina 68, 20831 Seregno (MB)
                 </p>
 
-                <!-- MESSAGGIO IN EVIDENZA -->
+                <!-- INFO BOX GENITORI (BLU) -->
+                <div class="bg-blue-50 border-l-8 border-blue-600 p-4 max-w-4xl mx-auto shadow-md rounded-r-xl text-left mb-6">
+                    <h3 class="text-blue-800 font-black uppercase text-sm md:text-base mb-2">
+                        <i class="fas fa-info-circle mr-2"></i> AVVISO IMPORTANTE PER I GENITORI
+                    </h3>
+                    <p class="text-gray-700 text-xs md:text-sm leading-relaxed">
+                        Al termine della prenotazione riceverete un <strong>CODICE DI PRENOTAZIONE</strong>. <br>
+                        È fondamentale <strong>conservarlo o fare uno screenshot</strong> perché serve a:
+                    </p>
+                    <ul class="list-disc list-inside text-xs md:text-sm text-gray-600 mt-2 font-semibold">
+                        <li><strong>Recuperare la ricevuta</strong> in caso di smarrimento (usando il tasto "Recupera Ricevuta" in alto).</li>
+                        <li><strong>Cancellare la prenotazione</strong> se non potrete partecipare, liberando il posto per altri (tasto "Annulla Prenotazione").</li>
+                    </ul>
+                </div>
+
+                <!-- MESSAGGIO RICEVUTA OBBLIGATORIA (ROSSO) -->
                 <div class="bg-yellow-50 border-l-8 border-red-500 p-3 md:p-4 max-w-2xl mx-auto shadow-md rounded-r-xl flex items-center justify-center space-x-3 md:space-x-4 mb-4 transform hover:scale-105 transition-transform duration-300">
                     <i class="fas fa-ticket-alt text-2xl md:text-3xl text-red-600 animate-pulse"></i>
                     <div class="text-left">
                         <span class="block text-red-700 font-black text-base md:text-lg uppercase leading-none">
                             Ricevuta Obbligatoria
                         </span>
-                        <span class="text-[10px] md:text-xs text-red-500 font-bold uppercase">Da conservare e mostrare all'ingresso</span>
+                        <span class="text-[10px] md:text-xs text-red-500 font-bold uppercase">Da presentare all'ingresso (digitale o cartacea)</span>
                     </div>
-                </div>
-
-                <!-- AVVISO FAIR PLAY -->
-                <div class="max-w-2xl mx-auto mb-6 text-center">
-                    <p class="text-xs text-gray-500 italic bg-gray-50 inline-block px-4 py-1 rounded-full border border-gray-200">
-                        <i class="fas fa-heart text-red-400 mr-1"></i> Se non puoi partecipare, ti preghiamo di <strong>cancellare la prenotazione</strong> per lasciare il posto ad altri genitori.
-                    </p>
                 </div>
 
                 <!-- Status Database & Counter -->
@@ -256,8 +260,6 @@
                                     <input type="tel" id="cellulare" required class="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none text-gray-700 text-sm" placeholder="333...">
                                 </div>
                             </div>
-
-                            <!-- Removed Class and Section inputs as requested -->
 
                             <div>
                                 <label class="block text-[10px] md:text-xs font-bold text-gray-500 mb-1 uppercase">Scuola Provenienza</label>
@@ -360,7 +362,7 @@
                     <div class="receipt-border relative">
                         <!-- Intestazione Ricevuta -->
                         <div class="text-center border-b-2 border-blue-900 pb-4 mb-4 md:mb-6">
-                            <h1 class="text-2xl md:text-3xl font-black text-blue-900">ITSCG PRIMO LEVI</h1>
+                            <h1 class="text-2xl md:text-3xl font-black text-blue-900">ITSCG "PRIMO LEVI"</h1>
                             <h2 class="text-sm md:text-lg text-gray-600 font-bold uppercase">Istruzione Tecnica e Liceale</h2>
                             <p class="text-xs md:text-sm text-gray-500">Via Briantina 68, 20831 Seregno (MB)</p>
                         </div>
@@ -381,6 +383,10 @@
                             <div class="flex justify-between border-b border-gray-200 pb-2">
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Studente</span>
                                 <span id="paper-student" class="font-bold text-gray-800 capitalize text-sm md:text-base">Nome Cognome</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Scuola</span>
+                                <span id="paper-class" class="font-bold text-gray-800 text-sm md:text-base">Nome Scuola</span>
                             </div>
                             <div class="flex flex-col pt-2">
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase mb-1">Indirizzo Scelto</span>
@@ -419,7 +425,10 @@
                         <span class="bg-yellow-100 px-2 py-1 rounded text-red-600 font-mono text-xl block text-center my-2 border border-yellow-300" id="instruction-code">CODE</span>
                     </p>
                     <p class="text-gray-700 text-xs md:text-sm font-bold">
-                        Se non riesci a scaricare la ricevuta, <span class="text-blue-600 uppercase font-extrabold bg-blue-50 px-1 rounded">FAI LO SCREENSHOT</span> alla ricevuta qui a fianco!
+                        Se non riesci a scaricare la ricevuta, <span class="text-blue-600 uppercase font-extrabold bg-blue-50 px-1 rounded">FAI LO SCREENSHOT DELLA SCHERMATA</span> qui a fianco!
+                    </p>
+                    <p class="text-gray-500 text-[10px] mt-4 pt-2 border-t font-semibold">
+                        Usa questo codice per recuperare la ricevuta o cancellare la prenotazione tramite le funzioni nel sito.
                     </p>
                 </div>
 
@@ -494,6 +503,7 @@
                                     <th class="p-4 text-sm">Codice</th>
                                     <th class="p-4 text-sm">Studente</th>
                                     <th class="p-4 text-sm">Contatti</th>
+                                    <th class="p-4 text-sm">Classe</th>
                                     <th class="p-4 text-sm">Scuola</th>
                                     <th class="p-4 text-sm">Indirizzo</th>
                                     <th class="p-4 text-sm text-center">Azioni</th>
@@ -583,7 +593,7 @@
             
             document.getElementById('paper-code').innerText = data.codice_prenotazione;
             document.getElementById('paper-student').innerText = `${data.cognome} ${data.nome}`;
-            document.getElementById('paper-class').innerText = `${data.scuola}`; // Aggiornato senza classe/sez
+            document.getElementById('paper-class').innerText = `${data.scuola}`; 
             document.getElementById('paper-course').innerText = data.indirizzo;
             document.getElementById('instruction-code').innerText = data.codice_prenotazione;
             
@@ -725,7 +735,7 @@
             
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(24); doc.setFont("helvetica", "bold");
-            doc.text("ITSCG PRIMO LEVI", 105, 25, null, null, "center");
+            doc.text("ITSCG \"PRIMO LEVI\"", 105, 25, null, null, "center");
             
             doc.setFontSize(12); doc.setFont("helvetica", "normal");
             doc.text("ISTRUZIONE TECNICA E LICEALE", 105, 35, null, null, "center");
@@ -754,7 +764,6 @@
 
             addLine("DATA OPEN DAY:", "9 Maggio 2026");
             addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
-            // Updated PDF content removing class/section
             addLine("SCUOLA:", `${currentBookingData.scuola}`); 
             addLine("CONTATTO:", currentBookingData.email);
             
@@ -873,6 +882,7 @@
                             <div>${b.email}</div>
                             <div>${b.cellulare}</div>
                         </td>
+                        <td class="p-4 text-center">${b.classe}^ ${b.sezione}</td>
                         <td class="p-4 text-sm truncate max-w-[150px]">${b.scuola}</td>
                         <td class="p-4 text-sm text-blue-600 font-semibold">${b.indirizzo}</td>
                         <td class="p-4 text-center">
@@ -922,7 +932,7 @@
             } else alert("Password errata");
         });
 
-        // 3D Background
+        // 3D Background - Moving School Logo
         if(typeof THREE !== 'undefined') {
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -930,30 +940,54 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
             
-            const geo = new THREE.IcosahedronGeometry(1,1);
-            const parts = [];
-            for(let i=0; i<40; i++) {
-                const mat = new THREE.MeshStandardMaterial({color: Math.random()>.5?0x667eea:0x764ba2, transparent:true, opacity:0.6});
-                const m = new THREE.Mesh(geo, mat);
-                m.position.set((Math.random()-.5)*20, (Math.random()-.5)*20, (Math.random()-.5)*10-5);
-                m.userData = {vx:(Math.random()-.5)*.02, vy:(Math.random()-.5)*.02};
-                scene.add(m); parts.push(m);
-            }
-            const l1 = new THREE.PointLight(0xffffff,1); l1.position.set(10,10,10); scene.add(l1);
-            scene.add(new THREE.AmbientLight(0xffffff,.5));
+            const loader = new THREE.TextureLoader();
+            // Use same logo as header
+            loader.load('https://cdn-icons-png.flaticon.com/512/2602/2602414.png', function(texture){
+                const geometry = new THREE.PlaneGeometry(2.5, 2.5); // Increased size
+                const particles = [];
+                for(let i=0; i<60; i++) { // Increased count to 60
+                    const material = new THREE.MeshBasicMaterial({
+                        map: texture, 
+                        transparent: true, 
+                        opacity: 0.2
+                    });
+                    const mesh = new THREE.Mesh(geometry, material);
+                    
+                    mesh.position.set(
+                        (Math.random() - 0.5) * 20, 
+                        (Math.random() - 0.5) * 15, 
+                        (Math.random() - 0.5) * 10 - 5
+                    );
+                    
+                    mesh.rotation.z = Math.random() * Math.PI;
+                    
+                    mesh.userData = {
+                        vx: (Math.random() - 0.5) * 0.015, 
+                        vy: (Math.random() - 0.5) * 0.015,
+                        vr: (Math.random() - 0.5) * 0.005
+                    };
+                    
+                    scene.add(mesh);
+                    particles.push(mesh);
+                }
+                
+                function anim() {
+                    requestAnimationFrame(anim);
+                    particles.forEach(p => {
+                        p.position.x += p.userData.vx; 
+                        p.position.y += p.userData.vy;
+                        p.rotation.z += p.userData.vr;
+                        
+                        if(Math.abs(p.position.x) > 12) p.userData.vx *= -1;
+                        if(Math.abs(p.position.y) > 9) p.userData.vy *= -1;
+                    });
+                    renderer.render(scene, camera);
+                }
+                anim();
+            });
+
             camera.position.z = 5;
             
-            function anim() {
-                requestAnimationFrame(anim);
-                parts.forEach(p => {
-                    p.position.x += p.userData.vx; p.position.y += p.userData.vy;
-                    p.rotation.x += 0.01; p.rotation.y += 0.01;
-                    if(Math.abs(p.position.x)>12) p.userData.vx *= -1;
-                    if(Math.abs(p.position.y)>8) p.userData.vy *= -1;
-                });
-                renderer.render(scene, camera);
-            }
-            anim();
             window.onresize = () => {
                 camera.aspect = window.innerWidth/window.innerHeight;
                 camera.updateProjectionMatrix();
