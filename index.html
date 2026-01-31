@@ -1,10 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Day 2026 - ITSCG "Primo Levi" Seregno</title>
-    <h1>ISTRUZIONE TECNICA LICEALE</h1>
+    <title>Open Day 2026 - ITSCG Primo Levi Seregno</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Three.js per sfondo 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -57,22 +56,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #1a1a2e;
+            background: rgba(26, 26, 46, 0.98); /* Sfondo scuro quasi opaco */
             z-index: 99999;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
             padding: 20px;
+            overflow-y: auto; /* Scroll abilitato */
+        }
+
+        /* Stile Foglio A4 a Video */
+        .receipt-paper {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            border: 1px solid #ddd;
+            position: relative;
+            transform-origin: top center;
+        }
+        
+        .receipt-border {
+            border: 2px solid #1e3a8a;
+            padding: 20px;
+            height: 100%;
         }
 
         .animate-bounce-slow {
             animation: bounce 3s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(-5%); }
-            50% { transform: translateY(5%); }
         }
 
         /* Loader */
@@ -83,7 +95,7 @@
             width: 30px;
             height: 30px;
             animation: spin 2s linear infinite;
-            display: none; /* Hidden by default */
+            display: none; 
             margin: 0 auto;
         }
 
@@ -101,184 +113,291 @@
     <!-- Main Content -->
     <div class="min-h-screen flex items-center justify-center p-4 py-12">
         
-        <div class="glass-card w-full max-w-4xl rounded-[3rem] p-8 md:p-12 relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
+        <div class="glass-card w-full max-w-6xl rounded-[3rem] p-6 md:p-12 relative overflow-hidden transition-all duration-300 hover:shadow-2xl">
             
+            <!-- Tasto Recupero in alto a destra -->
+            <button onclick="document.getElementById('retrieve-modal').classList.remove('hidden')" class="absolute top-6 right-6 bg-white hover:bg-blue-50 text-blue-700 px-5 py-3 rounded-full text-sm font-extrabold shadow-lg transition z-20 flex items-center border-2 border-blue-100 transform hover:scale-105">
+                <i class="fas fa-search mr-2"></i> Hai già prenotato? Recupera Ricevuta
+            </button>
+
             <!-- Decorazioni Cerchi -->
             <div class="absolute -top-10 -right-10 w-40 h-40 bg-purple-300 rounded-full opacity-50 blur-2xl animate-pulse"></div>
             <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-300 rounded-full opacity-50 blur-2xl animate-pulse"></div>
 
             <!-- Header e Logo -->
             <div class="text-center mb-10 relative z-10">
-                <!-- IMMAGINE LOGO SOSTITUITA -->
-                <div class="mb-6 flex justify-center">
-                    <img src="levi.png" alt="Logo ITSCG Primo Levi" class="w-32 h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
-                    <!-- Nota: Puoi sostituire l'URL qui sopra con il link al logo ufficiale della scuola -->
+                <div class="mb-5 flex justify-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2602/2602414.png" alt="Logo ITSCG Primo Levi" class="w-32 h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
                 </div>
 
-                <h1 class="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-800 mb-2 leading-tight">
-                    ITSCG PRIMO LEVI
-                </h1>
-                <p class="text-md text-gray-600 font-semibold tracking-wide uppercase mb-6">
+                <div class="space-y-1">
+                    <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-purple-800 leading-tight">
+                        ITSCG PRIMO LEVI
+                    </h1>
+                    <h2 class="text-xl md:text-3xl font-bold text-gray-600 tracking-wide pb-2">
+                        ISTRUZIONE TECNICA E LICEALE
+                    </h2>
+                </div>
+                <p class="text-sm text-gray-500 font-semibold tracking-wide uppercase mb-8 border-t border-gray-200 inline-block px-8 py-2">
                     Via Briantina 68, 20831 Seregno (MB)
                 </p>
 
                 <!-- MESSAGGIO IN EVIDENZA -->
-                <div class="bg-red-50 border-2 border-red-500 rounded-2xl p-4 max-w-2xl mx-auto shadow-lg animate-pulse flex items-center justify-center space-x-4">
-                    <i class="fas fa-exclamation-triangle text-3xl text-red-600"></i>
-                    <span class="text-red-700 font-extrabold text-lg uppercase leading-tight text-left">
-                        Conservare la ricevuta
-                    </span>
+                <div class="bg-yellow-50 border-l-8 border-red-500 p-4 max-w-2xl mx-auto shadow-md rounded-r-xl flex items-center justify-center space-x-4 mb-8 transform hover:scale-105 transition-transform duration-300">
+                    <i class="fas fa-ticket-alt text-3xl text-red-600 animate-pulse"></i>
+                    <div class="text-left">
+                        <span class="block text-red-700 font-black text-lg uppercase leading-none">
+                            Ricevuta Obbligatoria
+                        </span>
+                        <span class="text-xs text-red-500 font-bold uppercase">Da conservare e mostrare all'ingresso</span>
+                    </div>
                 </div>
 
                 <!-- Status Database -->
-                <div id="db-status" class="mt-4 text-xs font-bold text-gray-400">
+                <div id="db-status" class="text-xs font-bold text-gray-400 opacity-80">
                     <i class="fas fa-circle text-yellow-400 mr-1"></i> Connessione Database...
                 </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 relative z-10">
                 
                 <!-- Colonna Info -->
-                <div class="space-y-6">
-                    <div class="bg-blue-50 rounded-2xl p-6 border border-blue-100 shadow-sm">
-                        <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
-                            <i class="fas fa-rocket mr-3"></i> Il tuo Futuro Inizia Qui!
+                <div class="space-y-8 flex flex-col justify-center">
+                    <div class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-8 border border-blue-100 shadow-lg">
+                        <h2 class="text-3xl font-bold text-blue-900 mb-4 flex items-center">
+                            <i class="fas fa-door-open mr-3 text-blue-500"></i> Il tuo Futuro Inizia Qui!
                         </h2>
-                        <p class="text-gray-700 leading-relaxed">
-                            Cari studenti delle scuole medie, siete pronti a scoprire un mondo di opportunità? L'<strong>ITSCG Primo Levi</strong> vi apre le porte per conoscere la nostra offerta formativa i nostri obbiettivi e le nostre attività extracurricolari.
-                            La nostra offerta formativa è composta da
-                            1) Liceo Scientifico Opzione Scienze Applicate
-                            2) Costruzione Ambiente e Territorio
-                            3) Relazioni Internazionali per il Marketing
-                            4) Sistema Moda
-                            5) Logistica Corso Quadriennale 
+                        <p class="text-gray-700 leading-relaxed mb-6 text-base">
+                            L'<strong>ITSCG Primo Levi</strong> vi apre le porte per conoscere la nostra offerta formativa.
                         </p>
-                        <div class="mt-4 p-4 bg-white rounded-xl shadow-inner border border-blue-100 flex items-center">
-                            <div class="bg-blue-100 p-3 rounded-full mr-4 text-blue-600">
-                                <i class="far fa-calendar-alt text-2xl"></i>
+                        
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-blue-50 mb-6">
+                            <h3 class="text-blue-900 font-black mb-4 text-sm uppercase tracking-wider border-b border-gray-100 pb-2">Indirizzi di Studio Disponibili:</h3>
+                            <ul class="text-sm text-gray-700 space-y-3 list-none font-medium">
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>Liceo Scientifico Scienze Applicate</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>Costruzioni, Ambiente e Territorio (CAT)</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>Relazioni Internazionali per il Marketing</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>Sistema Moda</li>
+                                <li class="flex items-center"><span class="w-2 h-2 bg-green-400 rounded-full mr-3"></span>Logistica - Corso Quadriennale</li>
+                            </ul>
+                        </div>
+
+                        <div class="p-4 bg-blue-600 rounded-2xl flex items-center text-white shadow-lg transform hover:-translate-y-1 transition">
+                            <div class="bg-white/20 p-3 rounded-full mr-4 text-white">
+                                <i class="far fa-calendar-check text-2xl"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500 font-bold uppercase">Data Evento</p>
-                                <p class="text-xl font-bold text-gray-800">09 Maggio 2026</p>
+                                <p class="text-xs text-blue-100 font-bold uppercase tracking-wider">Data Open Day</p>
+                                <p class="text-2xl font-black">9 Maggio 2026</p>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-purple-50 rounded-2xl p-6 border border-purple-100 shadow-sm">
-                        <h3 class="font-bold text-purple-800 mb-2"><i class="fas fa-user-friends mr-2"></i> Le Referenti Orientamento</h3>
-                        <p class="text-sm text-gray-600 mb-4">
-                            Saremo liete di accogliervi e guidarvi nella scelta del vostro percorso.
-                        </p>
-                        <div class="flex flex-col space-y-2 text-purple-700 font-semibold text-sm">
-                            <span class="bg-white px-3 py-1 rounded-full shadow-sm w-fit"><i class="fas fa-chalkboard-teacher mr-2"></i>Prof.ssa Mariagrazia Calabrese</span>
-                            <span class="bg-white px-3 py-1 rounded-full shadow-sm w-fit"><i class="fas fa-chalkboard-teacher mr-2"></i>Prof.ssa Laura Corvi</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Colonna Form -->
                 <div>
-                    <form id="bookingForm" class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Nome Studente</label>
-                                <input type="text" id="nome" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80" placeholder="Mario">
+                    <div class="bg-white rounded-[2rem] p-8 shadow-2xl border border-gray-100 relative">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                        <h3 class="text-2xl font-black text-gray-800 mb-6 text-center">Prenota il tuo Posto</h3>
+                        
+                        <form id="bookingForm" class="space-y-5">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Nome Studente</label>
+                                    <input type="text" id="nome" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-gray-700" placeholder="Mario">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Cognome Studente</label>
+                                    <input type="text" id="cognome" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-gray-700" placeholder="Rossi">
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Cognome Studente</label>
-                                <input type="text" id="cognome" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80" placeholder="Rossi">
-                            </div>
-                        </div>
 
-                        <!-- Nuovi Campi: Email e Cellulare -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Email Genitore</label>
-                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80" placeholder="esempio@email.com">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Email Genitore</label>
+                                    <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none text-gray-700" placeholder="@">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Cellulare</label>
+                                    <input type="tel" id="cellulare" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none text-gray-700" placeholder="333...">
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Cellulare</label>
-                                <input type="tel" id="cellulare" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80" placeholder="333 1234567">
-                            </div>
-                        </div>
 
-                        <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Classe</label>
+                                    <select id="classe" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 font-bold text-gray-500 cursor-not-allowed">
+                                        <option value="2" selected>2^ Media</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Sezione</label>
+                                    <input type="text" id="sezione" required maxlength="2" class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none uppercase font-bold text-gray-700" placeholder="A">
+                                </div>
+                            </div>
+
                             <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Classe Attuale</label>
-                                <select id="classe" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80 font-bold text-gray-600 cursor-not-allowed">
-                                    <option value="2" selected>2^ Media</option>
+                                <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Scuola Provenienza</label>
+                                <input type="text" id="scuola" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none text-gray-700" placeholder="Es. Don Milani">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1 uppercase">Indirizzo Interesse</label>
+                                <select id="indirizzo" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-blue-900 bg-blue-50/50">
+                                    <option value="" disabled selected>Seleziona percorso...</option>
+                                    <option value="Liceo Scienze Applicate">Liceo Scienze Applicate</option>
+                                    <option value="Costruzioni, Ambiente e Territorio">Costruzioni, Ambiente e Territorio (CAT)</option>
+                                    <option value="Sistema Moda">Sistema Moda</option>
+                                    <option value="Relazioni Internazionali">Relazioni Internazionali</option>
+                                    <option value="Logistica - Corso Quadriennale">Logistica - Corso Quadriennale</option>
                                 </select>
                             </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">Sezione</label>
-                                <input type="text" id="sezione" required maxlength="2" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80 uppercase" placeholder="A">
+
+                            <div class="pt-4">
+                                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-extrabold py-4 px-6 rounded-2xl shadow-xl transform transition hover:scale-[1.02] active:scale-95 flex items-center justify-center text-lg group cursor-pointer">
+                                    <span class="group-hover:mr-2 transition-all">CONFERMA PRENOTAZIONE</span>
+                                    <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                                <div id="loadingSpinner" class="loader mt-4"></div>
                             </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Scuola di Provenienza</label>
-                            <input type="text" id="scuola" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80" placeholder="Es. Don Milani - Seregno">
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">Indirizzo di Interesse</label>
-                            <select id="indirizzo" required class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition outline-none bg-white/80">
-                                <option value="" disabled selected>Seleziona il percorso...</option>
-                                <option value="Liceo Scienze Applicate">Liceo Scienze Applicate</option>
-                                <option value="Costruzioni, Ambiente e Territorio">Costruzioni, Ambiente e Territorio</option>
-                                <option value="Sistema Moda">Sistema Moda</option>
-                                <option value="Relazioni Internazionali">Relazioni Internazionali</option>
-                                <option value="Logistica">Logistica</option>
-                            </select>
-                        </div>
-
-                        <div class="pt-4">
-                            <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transform transition hover:scale-[1.02] active:scale-95 flex items-center justify-center text-lg group cursor-pointer">
-                                <span class="group-hover:mr-2 transition-all">Conferma Iscrizione</span>
-                                <i class="fas fa-check-circle ml-2 group-hover:scale-125 transition-transform"></i>
-                            </button>
-                            <div id="loadingSpinner" class="loader mt-4"></div>
-                        </div>
-                        <p class="text-xs text-center text-gray-400 mt-2">
-                            Cliccando confermi la tua presenza per il 09/05/2026.
-                        </p>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <!-- Footer Area Admin -->
-            <div class="mt-12 text-center pt-8 border-t border-gray-200">
-                <button id="adminBtn" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition transform hover:scale-105 flex items-center justify-center mx-auto text-sm cursor-pointer">
-                    <i class="fas fa-user-shield mr-2"></i> AREA RISERVATA DOCENTI
+            <div class="mt-12 text-center pt-6 border-t border-gray-200/50">
+                <button id="adminBtn" class="text-xs text-gray-300 hover:text-blue-500 transition flex items-center justify-center mx-auto">
+                    <i class="fas fa-lock mr-1"></i> Area Docenti
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- OVERLAY CONFERMA -->
-    <div id="success-overlay">
-        <div class="animate-bounce-slow mb-8">
-            <i class="fas fa-check-circle text-green-400 text-9xl shadow-[0_0_50px_rgba(74,222,128,0.5)] rounded-full bg-white"></i>
+    <!-- MODALE RECUPERO RICEVUTA -->
+    <div id="retrieve-modal" class="fixed inset-0 bg-blue-900/90 backdrop-blur-sm hidden z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-10 max-w-md w-full shadow-2xl relative text-center">
+            <button onclick="document.getElementById('retrieve-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-300 hover:text-gray-600 transition">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            
+            <div class="mb-6">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600">
+                    <i class="fas fa-search text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-black text-gray-800">Cerca Prenotazione</h3>
+                <p class="text-gray-500 mt-2 text-sm">Inserisci il codice ricevuto per visualizzare la ricevuta.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <input type="text" id="retrieveCode" placeholder="Codice (es. LEVI-XY12)" class="w-full px-5 py-4 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:ring-0 outline-none uppercase font-bold text-center text-lg tracking-widest placeholder-gray-300">
+                
+                <button onclick="retrieveBooking()" class="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl hover:bg-blue-700 transition shadow-lg transform active:scale-95">
+                    VISUALIZZA RICEVUTA
+                </button>
+            </div>
+            <div id="retrieve-msg" class="mt-6 text-sm font-bold min-h-[20px]"></div>
         </div>
-        <h1 class="text-white font-extrabold text-5xl md:text-7xl mb-4 tracking-tight drop-shadow-lg uppercase text-center">
-            PRENOTAZIONE<br>CONFERMATA!
-        </h1>
-        <p class="text-blue-200 text-xl md:text-2xl mb-12 max-w-2xl px-4 text-center">
-            La registrazione per l'Open Day è avvenuta con successo.<br>
-            <span class="text-white mt-4 block font-bold text-2xl">IL 09 MAGGIO 2026</span>
-        </p>
-        
-        <button id="downloadBtn" class="bg-white text-blue-900 font-extrabold text-2xl py-6 px-12 rounded-full shadow-[0_0_50px_rgba(255,255,255,0.6)] hover:bg-blue-50 transform hover:scale-110 transition duration-300 flex items-center animate-pulse cursor-pointer border-4 border-blue-500">
-            <i class="fas fa-file-pdf mr-4 text-red-600 text-4xl"></i> SCARICA PDF RICEVUTA
-        </button>
+    </div>
 
-        <p id="download-msg" class="text-green-400 mt-8 hidden font-bold text-2xl">
-            <i class="fas fa-thumbs-up"></i> Ricevuta scaricata con successo!
-        </p>
+    <!-- OVERLAY CONFERMA E VISUALIZZAZIONE "SCHERMO COMPLETO" -->
+    <div id="success-overlay" class="backdrop-blur-md">
         
-        <button id="closeOverlayBtn" class="mt-12 bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold py-3 px-8 rounded-full hidden text-lg transition">
-            <i class="fas fa-home mr-2"></i> Torna alla Home Page
-        </button>
+        <div class="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 items-start justify-center pt-10">
+            
+            <!-- COLONNA SINISTRA: RICEVUTA VISIVA (FOGLIO A4) -->
+            <div class="flex-1 w-full flex justify-center order-2 lg:order-1">
+                <div class="receipt-paper transform hover:scale-[1.01] transition-transform duration-500">
+                    <div class="receipt-border relative">
+                        <!-- Intestazione Ricevuta -->
+                        <div class="text-center border-b-2 border-blue-900 pb-4 mb-6">
+                            <h1 class="text-3xl font-black text-blue-900">ITSCG PRIMO LEVI</h1>
+                            <h2 class="text-lg text-gray-600 font-bold uppercase">Istruzione Tecnica e Liceale</h2>
+                            <p class="text-sm text-gray-500">Via Briantina 68, 20831 Seregno (MB)</p>
+                        </div>
+
+                        <!-- Codice -->
+                        <div class="text-center mb-8">
+                            <p class="text-sm font-bold text-gray-400 uppercase tracking-widest">Codice Prenotazione</p>
+                            <p id="paper-code" class="text-5xl font-black text-red-600 tracking-wider my-2">CODE</p>
+                            <p class="text-xs text-red-500 font-bold bg-red-50 inline-block px-2 py-1 rounded">CONSERVA QUESTO CODICE!</p>
+                        </div>
+
+                        <!-- Dati -->
+                        <div class="bg-gray-50 p-6 rounded-lg mb-8 space-y-4 border border-gray-200">
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="font-bold text-gray-500 text-sm uppercase">Data Evento</span>
+                                <span class="font-bold text-gray-800">9 Maggio 2026</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="font-bold text-gray-500 text-sm uppercase">Studente</span>
+                                <span id="paper-student" class="font-bold text-gray-800 capitalize">Nome Cognome</span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="font-bold text-gray-500 text-sm uppercase">Classe</span>
+                                <span id="paper-class" class="font-bold text-gray-800">2^ A (Scuola)</span>
+                            </div>
+                            <div class="flex flex-col pt-2">
+                                <span class="font-bold text-gray-500 text-sm uppercase mb-1">Indirizzo Scelto</span>
+                                <span id="paper-course" class="font-bold text-blue-600 text-lg">Liceo Scientifico</span>
+                            </div>
+                        </div>
+
+                        <!-- Messaggio Referenti -->
+                        <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg text-center mb-8">
+                            <p class="italic text-gray-600 text-sm mb-2">"Grazie per aver scelto di scoprire la nostra scuola! Non vediamo l'ora di accogliervi e mostrarvi il vostro futuro."</p>
+                            <p class="font-bold text-blue-900 text-xs">- Prof.sse Calabrese & Corvi</p>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="text-center text-xs text-gray-400 uppercase mt-auto">
+                            Si prega di mostrare questa ricevuta all'ingresso.<br>
+                            Copia digitale generata automaticamente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLONNA DESTRA: ISTRUZIONI E AZIONI -->
+            <div class="w-full lg:w-96 flex flex-col gap-4 order-1 lg:order-2 sticky top-4">
+                <button onclick="window.closeOverlay()" class="self-end text-white hover:text-gray-300 mb-4">
+                    <i class="fas fa-times-circle text-4xl"></i>
+                </button>
+
+                <!-- AVVISO FOTO -->
+                <div class="bg-yellow-400 text-blue-900 p-6 rounded-2xl shadow-xl border-4 border-yellow-300 animate-pulse">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-camera text-4xl mr-3"></i>
+                        <h3 class="text-2xl font-black uppercase leading-none">Scatta una foto ora!</h3>
+                    </div>
+                    <p class="font-bold text-sm leading-tight">
+                        Fai subito una foto alla ricevuta che vedi qui a fianco (o sopra). Ti servirà per entrare se non riesci a scaricare il PDF.
+                    </p>
+                </div>
+
+                <!-- AVVISO CODICE -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-red-600 font-black uppercase mb-2 flex items-center">
+                        <i class="fas fa-pen-alt mr-2"></i> Segnati il codice
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Scrivi il codice <strong class="bg-gray-200 px-1 rounded text-black" id="instruction-code">CODE</strong> su un foglio di carta.
+                    </p>
+                    <div class="text-xs text-gray-500 border-t pt-2">
+                        <i class="fas fa-info-circle text-blue-500"></i> Se perdi la ricevuta, usa la funzione <strong>"Recupera Ricevuta"</strong> in alto a destra nel sito usando questo codice.
+                    </div>
+                </div>
+
+                <!-- PULSANTE DOWNLOAD -->
+                <button id="downloadBtn" class="w-full bg-blue-600 text-white font-extrabold py-4 px-6 rounded-2xl shadow-xl hover:bg-blue-700 transition transform hover:scale-105 flex items-center justify-center border-b-4 border-blue-800">
+                    <i class="fas fa-file-download text-2xl mr-3"></i> SCARICA PDF
+                </button>
+                <p id="download-msg" class="text-green-400 text-center font-bold hidden">
+                    <i class="fas fa-check"></i> Download avviato! Controlla i tuoi file.
+                </p>
+            </div>
+
+        </div>
     </div>
 
     <!-- MODALE LOGIN DOCENTI -->
@@ -286,7 +405,6 @@
         <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl transform scale-100 transition-transform">
             <div class="text-orange-500 text-5xl mb-4"><i class="fas fa-lock"></i></div>
             <h3 class="text-2xl font-bold text-gray-800 mb-2">Accesso Docenti</h3>
-            <p class="text-sm text-gray-500 mb-6">Inserisci le credenziali di istituto</p>
             <input type="password" id="adminPass" placeholder="Password" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl mb-4 text-center focus:border-orange-500 outline-none transition">
             <div class="flex gap-2">
                 <button id="closeAdminLoginBtn" class="flex-1 bg-gray-100 text-gray-600 py-3 rounded-xl font-bold hover:bg-gray-200 transition cursor-pointer">Annulla</button>
@@ -300,23 +418,15 @@
         <div class="min-h-screen p-4 md:p-8">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-6 rounded-3xl shadow-sm">
-                    <div class="mb-4 md:mb-0">
-                        <h2 class="text-3xl font-bold text-gray-800"><i class="fas fa-list-alt text-blue-600 mr-2"></i> Elenco Iscritti</h2>
-                        <p class="text-gray-500">Open Day 09 Maggio 2026 - ITSCG Primo Levi</p>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800">Elenco Iscritti</h2>
+                        <p class="text-gray-500">Open Day 9 Maggio 2026</p>
                     </div>
-                    <div class="flex gap-2 flex-wrap justify-center">
-                        <button id="refreshBtn" class="bg-blue-100 text-blue-600 px-6 py-3 rounded-xl font-bold hover:bg-blue-200 transition cursor-pointer">
-                            <i class="fas fa-sync-alt"></i> Aggiorna
-                        </button>
-                        <button id="deleteAllBtn" class="bg-red-800 text-white px-6 py-3 rounded-xl font-bold hover:bg-red-900 transition shadow-md flex items-center cursor-pointer">
-                            <i class="fas fa-dumpster-fire mr-2"></i> CANCELLA TUTTO
-                        </button>
-                        <button id="exportExcelBtn" class="bg-green-500 text-white px-6 py-3 rounded-xl font-bold hover:bg-green-600 transition shadow-md flex items-center cursor-pointer">
-                            <i class="fas fa-file-excel mr-2"></i> Scarica Excel
-                        </button>
-                        <button id="closeDashboardBtn" class="bg-red-50 text-red-600 px-6 py-3 rounded-xl font-bold hover:bg-red-100 transition border border-red-200 cursor-pointer">
-                            <i class="fas fa-sign-out-alt"></i> Esci
-                        </button>
+                    <div class="flex gap-2 flex-wrap justify-center mt-4 md:mt-0">
+                        <button id="refreshBtn" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-200 transition">Aggiorna</button>
+                        <button id="deleteAllBtn" class="bg-red-800 text-white px-4 py-2 rounded-lg font-bold hover:bg-red-900 transition">Cancella Tutto</button>
+                        <button id="exportExcelBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-600 transition">Excel</button>
+                        <button id="closeDashboardBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-bold hover:bg-gray-300 transition">Esci</button>
                     </div>
                 </div>
 
@@ -325,29 +435,19 @@
                         <table class="w-full text-left">
                             <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
                                 <tr>
-                                    <th class="p-5 font-semibold text-sm">Data</th>
-                                    <th class="p-5 font-semibold text-sm">Studente</th>
-                                    <th class="p-5 font-semibold text-sm">Contatti</th>
-                                    <th class="p-5 font-semibold text-sm">Classe</th>
-                                    <th class="p-5 font-semibold text-sm">Scuola</th>
-                                    <th class="p-5 font-semibold text-sm">Indirizzo</th>
-                                    <th class="p-5 font-semibold text-sm text-center">Azioni</th>
+                                    <th class="p-4 text-sm">Codice</th>
+                                    <th class="p-4 text-sm">Studente</th>
+                                    <th class="p-4 text-sm">Contatti</th>
+                                    <th class="p-4 text-sm">Classe</th>
+                                    <th class="p-4 text-sm">Scuola</th>
+                                    <th class="p-4 text-sm">Indirizzo</th>
+                                    <th class="p-4 text-sm text-center">Azioni</th>
                                 </tr>
                             </thead>
-                            <tbody id="bookings-table-body" class="divide-y divide-gray-100 text-gray-700 text-sm">
-                                <!-- Righe inserite via JS -->
-                                <tr>
-                                    <td colspan="7" class="p-8 text-center text-gray-400">
-                                        <i class="fas fa-spinner fa-spin mr-2"></i> Caricamento dati dal database...
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tbody id="bookings-table-body" class="divide-y divide-gray-100 text-gray-700 text-sm"></tbody>
                         </table>
                     </div>
-                    <div id="no-data-msg" class="p-12 text-center text-gray-400 hidden">
-                        <i class="fas fa-folder-open text-4xl mb-4 block opacity-50"></i>
-                        Nessuna prenotazione ricevuta nel database.
-                    </div>
+                    <div id="no-data-msg" class="p-12 text-center text-gray-400 hidden">Nessuna prenotazione.</div>
                 </div>
             </div>
         </div>
@@ -356,343 +456,355 @@
     <!-- LOGICA E FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-        // Configurazione Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyD9uCY_LTdR7d8AmpoKjFSg7ZvfDHxKGiI",
             authDomain: "prenotazioni-secondeclassi.firebaseapp.com",
             projectId: "prenotazioni-secondeclassi",
             storageBucket: "prenotazioni-secondeclassi.firebasestorage.app",
             messagingSenderId: "334185721750",
-            appId: "1:334185721750:web:23096a9bb3e98058e8f7b7",
-            measurementId: "G-PJVJQB3PLB"
+            appId: "1:334185721750:web:23096a9bb3e98058e8f7b7"
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const db = getFirestore(app);
         const auth = getAuth(app);
-
         const dbStatus = document.getElementById('db-status');
 
-        signInAnonymously(auth)
-            .then(() => console.log("Login anonimo richiesto..."))
-            .catch((error) => {
-                console.error("Errore Auth:", error);
-                if (error.code === 'auth/operation-not-allowed') {
-                    dbStatus.innerHTML = '<i class="fas fa-exclamation-triangle text-red-500"></i> ERRORE CONFIGURAZIONE: Abilita "Anonymous" in Firebase Console -> Authentication.';
-                    dbStatus.className = "mt-2 text-xs font-bold text-red-500";
-                    alert("ERRORE CRITICO: Devi abilitare l'autenticazione 'Anonima' nella console di Firebase.");
-                } else {
-                    dbStatus.innerHTML = '<i class="fas fa-times text-red-500"></i> Errore Autenticazione.';
-                }
-            });
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("Utente connesso:", user.uid);
-                dbStatus.innerHTML = '<i class="fas fa-circle text-green-400"></i> Database Pronto';
-                dbStatus.className = "mt-2 text-xs font-bold text-green-400";
-            }
+        signInAnonymously(auth).then(() => {
+            console.log("Login anonimo OK");
+            dbStatus.innerHTML = '<i class="fas fa-circle text-green-400 mr-1"></i> Database Connesso';
+            dbStatus.classList.remove('text-gray-400');
+            dbStatus.classList.add('text-green-400');
+        }).catch(err => {
+            console.error(err);
+            dbStatus.innerHTML = '<i class="fas fa-times text-red-500 mr-1"></i> Errore Database';
+            alert("Errore connessione database: " + err.message);
         });
 
         let currentBookingData = null;
         let allBookingsData = [];
 
-        // --- SUBMIT FORM ---
-        const bookingForm = document.getElementById('bookingForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-
-        bookingForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (!auth.currentUser) {
-                alert("Errore: Non sei connesso al database.");
-                return;
+        function generateCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let result = '';
+            for (let i = 0; i < 4; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
             }
+            return 'LEVI-' + result;
+        }
 
-            submitBtn.disabled = true;
-            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            loadingSpinner.style.display = 'block';
+        // --- VISUALIZZA OVERLAY CON FOGLIO ---
+        function showSuccessOverlay(data) {
+            currentBookingData = data; 
+            
+            // Popola il "foglio" visivo
+            document.getElementById('paper-code').innerText = data.codice_prenotazione;
+            document.getElementById('paper-student').innerText = `${data.cognome} ${data.nome}`;
+            document.getElementById('paper-class').innerText = `${data.classe}^ ${data.sezione} (${data.scuola})`;
+            document.getElementById('paper-course').innerText = data.indirizzo;
+            
+            // Popola l'istruzione laterale
+            document.getElementById('instruction-code').innerText = data.codice_prenotazione;
+            
+            document.getElementById('success-overlay').style.display = 'flex';
+            document.getElementById('downloadBtn').style.display = 'flex';
+            document.getElementById('download-msg').classList.add('hidden');
+        }
+
+        window.closeOverlay = function() {
+            document.getElementById('success-overlay').style.display = 'none';
+        }
+
+        // --- INVIO PRENOTAZIONE ---
+        document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (!auth.currentUser) return alert("Attendi la connessione al database...");
+
+            const btn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('loadingSpinner');
+            btn.disabled = true; btn.classList.add('opacity-50'); spinner.style.display = 'block';
+
+            const generatedCode = generateCode();
 
             const formData = {
-                nome: document.getElementById('nome').value,
-                cognome: document.getElementById('cognome').value,
-                email: document.getElementById('email').value,
-                cellulare: document.getElementById('cellulare').value,
+                nome: document.getElementById('nome').value.trim(),
+                cognome: document.getElementById('cognome').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                cellulare: document.getElementById('cellulare').value.trim(),
                 classe: document.getElementById('classe').value,
-                sezione: document.getElementById('sezione').value.toUpperCase(),
-                scuola: document.getElementById('scuola').value,
+                sezione: document.getElementById('sezione').value.toUpperCase().trim(),
+                scuola: document.getElementById('scuola').value.trim(),
                 indirizzo: document.getElementById('indirizzo').value,
+                codice_prenotazione: generatedCode,
                 data_creazione: new Date().toLocaleString('it-IT'),
                 timestamp: serverTimestamp()
             };
 
             try {
-                const docRef = await addDoc(collection(db, "prenotazioni"), formData);
-                currentBookingData = { ...formData, id: docRef.id.slice(0, 8).toUpperCase() };
-                
-                document.getElementById('success-overlay').style.display = 'flex';
-                bookingForm.reset();
-                document.getElementById('downloadBtn').style.display = 'flex';
-                document.getElementById('download-msg').classList.add('hidden');
-                document.getElementById('closeOverlayBtn').classList.add('hidden');
+                await addDoc(collection(db, "prenotazioni"), formData);
+                showSuccessOverlay(formData);
+                document.getElementById('bookingForm').reset();
             } catch (error) {
-                console.error("Errore salvataggio:", error);
                 alert("Errore salvataggio: " + error.message);
             } finally {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                loadingSpinner.style.display = 'none';
+                btn.disabled = false; btn.classList.remove('opacity-50'); spinner.style.display = 'none';
             }
         });
 
-        // --- FUNZIONE ELIMINA SINGOLO (NUOVA LOGICA ROBUSTA) ---
-        async function deleteBooking(id) {
-            if(!confirm("Sei sicuro di voler eliminare questa prenotazione?")) return;
-            try {
-                await deleteDoc(doc(db, "prenotazioni", id));
-                //alert("Prenotazione eliminata."); // Commentato per non dare fastidio, ricarica e basta
-                loadBookings();
-            } catch (error) {
-                console.error("Errore eliminazione:", error);
-                alert("Errore eliminazione: " + error.message);
-            }
-        }
-
-        // --- FUNZIONE ELIMINA TUTTO (NUOVA) ---
-        async function deleteAllBookings() {
-            if(!confirm("ATTENZIONE: Stai per eliminare TUTTE le prenotazioni. Questa azione è irreversibile. Sei sicuro?")) return;
-            if(!confirm("Confermi DAVVERO di voler cancellare l'intero database?")) return;
+        // --- RECUPERO PRENOTAZIONE ---
+        window.retrieveBooking = async function() {
+            const code = document.getElementById('retrieveCode').value.trim().toUpperCase();
+            const msgDiv = document.getElementById('retrieve-msg');
             
-            const btn = document.getElementById('deleteAllBtn');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cancellazione...';
-            btn.disabled = true;
-
-            try {
-                // Firestore non ha "delete collection", bisogna iterare
-                const q = query(collection(db, "prenotazioni"));
-                const snapshot = await getDocs(q);
-                
-                // Creiamo un array di promesse per cancellare
-                const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
-                await Promise.all(deletePromises);
-                
-                alert("Tutte le prenotazioni sono state eliminate.");
-                loadBookings();
-            } catch (error) {
-                console.error("Errore cancellazione totale:", error);
-                alert("Errore: " + error.message);
-            } finally {
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }
-        }
-
-        // --- CARICAMENTO DATI ---
-        async function loadBookings() {
-            if (!auth.currentUser) {
-                // Retry silent o alert
+            if(!code) {
+                msgDiv.innerHTML = '<span class="text-red-500">Inserisci il codice.</span>';
                 return;
             }
 
-            const container = document.getElementById('bookings-table-body');
-            const noDataMsg = document.getElementById('no-data-msg');
-            container.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-gray-500"><i class="fas fa-spinner fa-spin"></i> Caricamento...</td></tr>`;
+            msgDiv.innerHTML = '<span class="text-gray-500"><i class="fas fa-spinner fa-spin"></i> Ricerca in corso...</span>';
 
             try {
-                const q = query(collection(db, "prenotazioni"), orderBy("timestamp", "desc"));
-                const querySnapshot = await getDocs(q);
-                
-                container.innerHTML = '';
-                allBookingsData = [];
+                const q = query(collection(db, "prenotazioni"), where("codice_prenotazione", "==", code));
+                const snapshot = await getDocs(q);
 
-                if (querySnapshot.empty) {
-                    noDataMsg.classList.remove('hidden');
-                } else {
-                    noDataMsg.classList.add('hidden');
-                    querySnapshot.forEach((docSnapshot) => {
-                        const b = docSnapshot.data();
-                        const docId = docSnapshot.id;
-                        allBookingsData.push(b);
-
-                        // Creazione riga con pulsante di eliminazione
-                        const tr = document.createElement('tr');
-                        tr.className = "hover:bg-blue-50 transition border-b border-gray-100";
-                        tr.innerHTML = `
-                            <td class="p-4">${b.data_creazione || '-'}</td>
-                            <td class="p-4 font-bold text-gray-800 uppercase">${b.cognome} ${b.nome}</td>
-                            <td class="p-4 text-xs">
-                                <div><i class="fas fa-envelope mr-1 text-gray-400"></i>${b.email}</div>
-                                <div><i class="fas fa-phone mr-1 text-gray-400"></i>${b.cellulare}</div>
-                            </td>
-                            <td class="p-4 text-center">${b.classe}^ ${b.sezione}</td>
-                            <td class="p-4 text-gray-600 truncate max-w-xs" title="${b.scuola}">${b.scuola}</td>
-                            <td class="p-4 text-blue-600 font-semibold">${b.indirizzo}</td>
-                            <td class="p-4 text-center">
-                                <button class="delete-btn text-red-500 hover:text-red-700 hover:bg-red-100 p-2 rounded-full transition cursor-pointer" data-id="${docId}" title="Elimina">
-                                    <i class="fas fa-trash-alt pointer-events-none"></i>
-                                </button>
-                            </td>
-                        `;
-                        container.appendChild(tr);
-                    });
+                if(snapshot.empty) {
+                    msgDiv.innerHTML = '<span class="text-red-500">Codice non trovato. Riprova.</span>';
+                    return;
                 }
-            } catch (error) {
-                console.error("Errore lettura:", error);
-                container.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-red-500">Errore: ${error.message}</td></tr>`;
+
+                const docData = snapshot.docs[0].data();
+                document.getElementById('retrieve-modal').classList.add('hidden');
+                document.getElementById('retrieveCode').value = ''; 
+                msgDiv.innerHTML = '';
+                showSuccessOverlay(docData);
+
+            } catch(e) {
+                console.error(e);
+                msgDiv.innerHTML = '<span class="text-red-500">Errore di rete. Riprova.</span>';
             }
         }
 
-        // --- EVENT DELEGATION MIGLIORATA PER IL PULSANTE CANCELLA ---
-        document.getElementById('bookings-table-body').addEventListener('click', (e) => {
-            // Usa .closest() per trovare il bottone anche se clicchi l'icona
-            const btn = e.target.closest('.delete-btn');
-            if (btn) {
-                const id = btn.getAttribute('data-id');
-                deleteBooking(id);
-            }
-        });
-
-        // --- EXPORT EXCEL ---
-        document.getElementById('exportExcelBtn').addEventListener('click', () => {
-            if(allBookingsData.length === 0) { alert("Nessun dato."); return; }
-            let csvContent = "data:text/csv;charset=utf-8,Data;Cognome;Nome;Email;Cellulare;Classe;Sezione;Scuola;Indirizzo\r\n";
-            allBookingsData.forEach(row => {
-                csvContent += [row.data_creazione, row.cognome, row.nome, row.email, row.cellulare, row.classe, row.sezione, row.scuola, row.indirizzo].map(item => `"${item || ''}"`).join(";") + "\r\n";
-            });
-            const link = document.createElement("a");
-            link.href = encodeURI(csvContent);
-            link.download = "prenotazioni_openday_2026.csv";
-            link.click();
-        });
-
-        // --- DASHBOARD UI HANDLERS ---
-        document.getElementById('adminBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.remove('hidden'));
-        document.getElementById('closeAdminLoginBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.add('hidden'));
-        document.getElementById('closeDashboardBtn').addEventListener('click', () => document.getElementById('admin-dashboard').classList.add('hidden'));
-        document.getElementById('refreshBtn').addEventListener('click', loadBookings);
-        document.getElementById('deleteAllBtn').addEventListener('click', deleteAllBookings);
-        
-        document.getElementById('checkAdminBtn').addEventListener('click', () => {
-            if(document.getElementById('adminPass').value === 'admin123') { 
-                document.getElementById('admin-login-modal').classList.add('hidden');
-                document.getElementById('adminPass').value = '';
-                document.getElementById('admin-dashboard').classList.remove('hidden');
-                loadBookings();
-            } else {
-                alert("Password errata!");
-            }
-        });
-
-        // --- PDF DOWNLOAD ---
+        // --- GENERAZIONE PDF ---
         window.downloadReceipt = function() {
             if(!currentBookingData) return;
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            doc.setFillColor(37, 99, 235);
-            doc.rect(0, 0, 210, 50, 'F');
+            // BORDO DECORATIVO BLU SCURO
+            doc.setDrawColor(30, 58, 138); 
+            doc.setLineWidth(1.5);
+            doc.rect(5, 5, 200, 287);
+
+            // HEADER (Sfondo Blu)
+            doc.setFillColor(30, 58, 138); 
+            doc.rect(5, 5, 200, 50, 'F');
+            
             doc.setTextColor(255, 255, 255);
-            doc.setFontSize(22); doc.setFont("helvetica", "bold");
-            doc.text("CONFERMA PRENOTAZIONE", 105, 20, null, null, "center");
-            doc.setFontSize(14); doc.text("ITSCG PRIMO LEVI", 105, 32, null, null, "center");
-            doc.setFontSize(10); doc.setFont("helvetica", "normal");
-            doc.text("Via Briantina 68, 20831 Seregno (MB)", 105, 40, null, null, "center");
+            doc.setFontSize(24); doc.setFont("helvetica", "bold");
+            doc.text("ITSCG PRIMO LEVI", 105, 25, null, null, "center");
+            
+            doc.setFontSize(12); doc.setFont("helvetica", "normal");
+            doc.text("ISTRUZIONE TECNICA E LICEALE", 105, 35, null, null, "center");
+            
+            doc.setFontSize(10);
+            doc.text("Via Briantina 68, 20831 Seregno (MB)", 105, 45, null, null, "center");
 
-            doc.setTextColor(0, 0, 0); doc.setFontSize(11);
-            doc.text(`Codice: #${currentBookingData.id}`, 15, 60);
-            doc.text(`Data: ${currentBookingData.data_creazione}`, 195, 60, null, null, "right");
+            // CODICE (Rosso)
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(14);
+            doc.text("CODICE PRENOTAZIONE:", 105, 75, null, null, "center");
+            
+            doc.setFontSize(36); doc.setTextColor(220, 38, 38); doc.setFont("helvetica", "bold");
+            doc.text(currentBookingData.codice_prenotazione || "N/A", 105, 90, null, null, "center");
 
-            doc.setFillColor(245, 247, 250); doc.roundedRect(15, 65, 180, 110, 3, 3, 'FD');
-            doc.setFontSize(16); doc.setTextColor(37, 99, 235); doc.setFont("helvetica", "bold");
-            doc.text("DATI STUDENTE", 25, 80);
+            // BOX DATI
+            doc.setDrawColor(200, 200, 200);
+            doc.setFillColor(245, 247, 250);
+            doc.roundedRect(20, 105, 170, 95, 5, 5, 'FD');
 
-            doc.setTextColor(60, 60, 60); doc.setFontSize(12);
-            let y = 100;
-            const addField = (l, v) => {
-                doc.setFont("helvetica", "bold"); doc.text(l, 25, y);
-                doc.setFont("helvetica", "normal"); doc.text(v, 80, y);
+            doc.setTextColor(50, 50, 50); doc.setFontSize(12); doc.setFont("helvetica", "normal");
+            let y = 120;
+            const addLine = (label, value) => {
+                doc.setFont("helvetica", "bold"); doc.text(label, 30, y);
+                doc.setFont("helvetica", "normal"); doc.text(value, 95, y);
                 y += 12;
             };
 
-            addField("Cognome e Nome:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
-            addField("Classe:", `${currentBookingData.classe}^ ${currentBookingData.sezione}`);
-            addField("Scuola:", currentBookingData.scuola);
-            addField("Email:", currentBookingData.email);
-            addField("Cellulare:", currentBookingData.cellulare);
+            addLine("DATA OPEN DAY:", "9 Maggio 2026");
+            addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
+            addLine("CLASSE:", `${currentBookingData.classe}^ ${currentBookingData.sezione} (${currentBookingData.scuola})`);
+            addLine("CONTATTO:", currentBookingData.email);
+            
             y += 5;
-            doc.setFont("helvetica", "bold"); doc.text("Indirizzo Scelto:", 25, y);
-            doc.setTextColor(124, 58, 237); doc.setFontSize(13);
-            doc.text(currentBookingData.indirizzo, 80, y);
+            doc.setFont("helvetica", "bold"); doc.text("INDIRIZZO SCELTO:", 30, y);
+            doc.setTextColor(37, 99, 235); doc.setFontSize(14);
+            doc.text(currentBookingData.indirizzo, 30, y+8);
 
-            doc.setDrawColor(0); doc.setLineWidth(1); doc.rect(15, 190, 180, 50, 'S');
-            doc.setTextColor(220, 38, 38); doc.setFontSize(16); doc.setFont("helvetica", "bold");
-            doc.text("IMPORTANTE", 105, 205, null, null, "center");
-            doc.setTextColor(0); doc.setFontSize(12); doc.setFont("helvetica", "normal");
-            doc.text("Presentarsi con questa ricevuta.", 105, 215, null, null, "center");
-            doc.setFontSize(14); doc.setFont("helvetica", "bold");
-            doc.text("OPEN DAY: 09 MAGGIO 2026", 105, 225, null, null, "center");
+            // MESSAGGIO DI RINGRAZIAMENTO
+            doc.setFillColor(255, 248, 225); 
+            doc.setDrawColor(255, 213, 79); 
+            doc.roundedRect(20, 220, 170, 40, 3, 3, 'FD');
 
-            doc.save(`Ricevuta_PrimoLevi_${currentBookingData.cognome}.pdf`);
+            doc.setTextColor(80, 80, 80);
+            doc.setFontSize(11);
+            doc.setFont("helvetica", "italic");
+            doc.text("Grazie per aver scelto di scoprire la nostra scuola!", 105, 230, null, null, "center");
+            doc.text("Non vediamo l'ora di accogliervi e mostrarvi il vostro futuro.", 105, 237, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(30, 58, 138); 
+            doc.text("- Le Referenti Orientamento: Prof.ssa Calabrese & Prof.ssa Corvi", 105, 250, null, null, "center");
 
-            document.getElementById('downloadBtn').style.display = 'none';
-            document.getElementById('download-msg').classList.remove('hidden');
-            document.getElementById('closeOverlayBtn').classList.remove('hidden');
-            document.getElementById('closeOverlayBtn').style.display = 'inline-block';
-        };
+            // Footer
+            doc.setFontSize(9);
+            doc.setTextColor(150, 150, 150);
+            doc.setFont("helvetica", "normal");
+            doc.text("Si prega di mostrare questa ricevuta all'ingresso.", 105, 280, null, null, "center");
 
-        window.closeOverlay = function() {
-            document.getElementById('success-overlay').style.display = 'none';
-            currentBookingData = null;
+            doc.save(`Ricevuta_Levi_${currentBookingData.cognome}_${currentBookingData.codice_prenotazione}.pdf`);
+
+            const dlMsg = document.getElementById('download-msg');
+            if(dlMsg) dlMsg.classList.remove('hidden');
+            const dlBtn = document.getElementById('downloadBtn');
+            if(dlBtn) dlBtn.style.display = 'none';
         };
 
         document.getElementById('downloadBtn').addEventListener('click', window.downloadReceipt);
-        document.getElementById('closeOverlayBtn').addEventListener('click', window.closeOverlay);
 
-        // --- 3D BACKGROUND ---
-        if (typeof THREE !== 'undefined') {
+        // --- ADMIN FUNCTIONS ---
+        window.deleteBooking = async function(id) {
+            if(!confirm("Eliminare definitivamente?")) return;
+            try { await deleteDoc(doc(db, "prenotazioni", id)); loadBookings(); } 
+            catch(e) { alert(e.message); }
+        };
+
+        window.deleteAllBookings = async function() {
+            if(!confirm("CANCELLARE TUTTO IL DATABASE? IRREVERSIBILE.")) return;
+            if(!confirm("SEI SICURO AL 100%?")) return;
+            const btn = document.getElementById('deleteAllBtn');
+            btn.innerHTML = '...';
+            try {
+                const snap = await getDocs(collection(db, "prenotazioni"));
+                const promises = snap.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(promises);
+                loadBookings();
+                alert("Database svuotato.");
+            } catch(e) { alert(e.message); }
+            btn.innerHTML = 'Cancella Tutto';
+        };
+
+        async function loadBookings() {
+            const tbody = document.getElementById('bookings-table-body');
+            const noData = document.getElementById('no-data-msg');
+            tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center">Caricamento...</td></tr>';
+            
+            try {
+                const q = query(collection(db, "prenotazioni"), orderBy("timestamp", "desc"));
+                const snap = await getDocs(q);
+                
+                tbody.innerHTML = '';
+                allBookingsData = [];
+
+                if(snap.empty) {
+                    noData.classList.remove('hidden');
+                } else {
+                    noData.classList.add('hidden');
+                    snap.forEach(d => {
+                        const b = d.data();
+                        allBookingsData.push(b);
+                        const row = `
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-mono font-bold text-blue-600">${b.codice_prenotazione || '-'}</td>
+                                <td class="p-4 font-bold uppercase">${b.cognome} ${b.nome}</td>
+                                <td class="p-4 text-xs">
+                                    <div>${b.email}</div>
+                                    <div>${b.cellulare}</div>
+                                </td>
+                                <td class="p-4 text-center">${b.classe}^ ${b.sezione}</td>
+                                <td class="p-4 text-sm truncate max-w-[150px]">${b.scuola}</td>
+                                <td class="p-4 text-sm text-blue-600 font-semibold">${b.indirizzo}</td>
+                                <td class="p-4 text-center">
+                                    <button onclick="window.deleteBooking('${d.id}')" class="text-red-500 hover:bg-red-100 p-2 rounded-full transition"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        `;
+                        tbody.insertAdjacentHTML('beforeend', row);
+                    });
+                }
+            } catch(e) {
+                console.error(e);
+                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500">Errore: ${e.message}</td></tr>`;
+            }
+        }
+
+        document.getElementById('exportExcelBtn').addEventListener('click', () => {
+            if(allBookingsData.length === 0) return alert("Nessun dato.");
+            let csv = "data:text/csv;charset=utf-8,Codice;Cognome;Nome;Email;Cellulare;Classe;Sezione;Scuola;Indirizzo\r\n";
+            allBookingsData.forEach(r => {
+                csv += `${r.codice_prenotazione};${r.cognome};${r.nome};${r.email};${r.cellulare};${r.classe};${r.sezione};${r.scuola};${r.indirizzo}\r\n`;
+            });
+            const link = document.createElement("a");
+            link.href = encodeURI(csv);
+            link.download = "OpenDay_Levi_Prenotazioni.csv";
+            link.click();
+        });
+
+        // UI Handlers
+        document.getElementById('adminBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.remove('hidden'));
+        document.getElementById('closeAdminLoginBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.add('hidden'));
+        document.getElementById('closeDashboardBtn').addEventListener('click', () => document.getElementById('admin-dashboard').classList.add('hidden'));
+        document.getElementById('refreshBtn').addEventListener('click', loadBookings);
+        document.getElementById('deleteAllBtn').addEventListener('click', window.deleteAllBookings);
+        
+        document.getElementById('checkAdminBtn').addEventListener('click', () => {
+            if(document.getElementById('adminPass').value === 'admin123') {
+                document.getElementById('admin-login-modal').classList.add('hidden');
+                document.getElementById('admin-dashboard').classList.remove('hidden');
+                loadBookings();
+            } else alert("Password errata");
+        });
+
+        // 3D Background
+        if(typeof THREE !== 'undefined') {
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true});
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.getElementById('canvas-container').appendChild(renderer.domElement);
             
-            const geometry = new THREE.IcosahedronGeometry(1, 1);
-            const particles = [];
+            const geo = new THREE.IcosahedronGeometry(1,1);
+            const parts = [];
             for(let i=0; i<40; i++) {
-                const material = new THREE.MeshStandardMaterial({ color: Math.random()>0.5?0x667eea:0x764ba2, transparent: true, opacity: 0.6 });
-                const mesh = new THREE.Mesh(geometry, material);
-                mesh.position.set((Math.random()-0.5)*20, (Math.random()-0.5)*20, (Math.random()-0.5)*10-5);
-                mesh.userData = { vx: (Math.random()-0.5)*0.02, vy: (Math.random()-0.5)*0.02, rx: (Math.random()-0.5)*0.02, ry: (Math.random()-0.5)*0.02 };
-                scene.add(mesh);
-                particles.push(mesh);
+                const mat = new THREE.MeshStandardMaterial({color: Math.random()>.5?0x667eea:0x764ba2, transparent:true, opacity:0.6});
+                const m = new THREE.Mesh(geo, mat);
+                m.position.set((Math.random()-.5)*20, (Math.random()-.5)*20, (Math.random()-.5)*10-5);
+                m.userData = {vx:(Math.random()-.5)*.02, vy:(Math.random()-.5)*.02};
+                scene.add(m); parts.push(m);
             }
-            const light = new THREE.PointLight(0xffffff, 1);
-            light.position.set(10, 10, 10);
-            scene.add(light); scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const l1 = new THREE.PointLight(0xffffff,1); l1.position.set(10,10,10); scene.add(l1);
+            scene.add(new THREE.AmbientLight(0xffffff,.5));
             camera.position.z = 5;
-
-            function animate() {
-                requestAnimationFrame(animate);
-                particles.forEach(p => {
+            
+            function anim() {
+                requestAnimationFrame(anim);
+                parts.forEach(p => {
                     p.position.x += p.userData.vx; p.position.y += p.userData.vy;
-                    p.rotation.x += p.userData.rx; p.rotation.y += p.userData.ry;
-                    if(Math.abs(p.position.x)>12) p.userData.vx*=-1;
-                    if(Math.abs(p.position.y)>8) p.userData.vy*=-1;
+                    p.rotation.x += 0.01; p.rotation.y += 0.01;
+                    if(Math.abs(p.position.x)>12) p.userData.vx *= -1;
+                    if(Math.abs(p.position.y)>8) p.userData.vy *= -1;
                 });
                 renderer.render(scene, camera);
             }
-            animate();
-            window.addEventListener('resize', () => {
+            anim();
+            window.onresize = () => {
                 camera.aspect = window.innerWidth/window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
-            });
+            };
         }
     </script>
 </body>
