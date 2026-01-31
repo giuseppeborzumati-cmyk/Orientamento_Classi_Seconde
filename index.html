@@ -139,7 +139,7 @@
             <!-- Header e Logo -->
             <div class="text-center mb-6 md:mb-10 relative z-10 pt-8 md:pt-0">
                 <div class="mb-4 md:mb-5 flex justify-center">
-                    <img id="school-logo-img" src="levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
+                    <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
                 </div>
 
                 <div class="space-y-1">
@@ -250,11 +250,11 @@
                                 </div>
                             </div>
 
-                            <!-- NUOVO CAMPO: Numero Partecipanti -->
+                            <!-- NUOVO CAMPO: Numero Partecipanti (SENZA LIMITE) -->
                             <div>
                                 <label class="block text-[10px] md:text-xs font-bold text-gray-500 mb-1 uppercase">Numero Partecipanti (incluso studente)</label>
-                                <input type="number" id="partecipanti" min="1" max="5" value="1" required class="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-gray-700 text-sm" placeholder="Es. 3">
-                                <p class="text-[10px] text-gray-400 mt-1">Massimo 5 persone per famiglia.</p>
+                                <input type="number" id="partecipanti" min="1" required class="w-full px-3 md:px-4 py-2 md:py-3 rounded-xl border-2 border-gray-100 focus:border-blue-500 focus:ring-0 transition outline-none font-bold text-gray-700 text-sm" placeholder="Es. 3">
+                                <p class="text-[10px] text-gray-400 mt-1">Inserisci il numero totale di persone (studente + accompagnatori).</p>
                             </div>
 
                             <div>
@@ -459,14 +459,20 @@
         <div class="min-h-screen p-4 md:p-8">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col lg:flex-row justify-between items-center mb-8 bg-white p-6 rounded-3xl shadow-sm gap-4">
-                    <div class="flex items-center gap-4">
-                        <div>
+                    <div class="flex items-center gap-4 w-full lg:w-auto">
+                        <div class="flex flex-col gap-1">
                             <h2 class="text-3xl font-bold text-gray-800" id="dash-title">Elenco Iscritti</h2>
-                            <p class="text-gray-500">Totale: <span id="total-count" class="font-bold text-blue-600 text-xl">0</span></p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <div class="bg-blue-600 text-white px-4 py-2 rounded-xl shadow-md">
+                                    <span class="text-xs uppercase font-bold opacity-80 block">Totale Partecipanti</span>
+                                    <span id="total-count" class="text-3xl font-black">0</span>
+                                    <span class="text-sm font-bold opacity-70">/ 400</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Toggle Views -->
-                        <div class="flex bg-gray-100 p-1 rounded-lg">
+                        <div class="flex flex-col md:flex-row gap-2 bg-gray-100 p-1 rounded-lg ml-auto lg:ml-4">
                             <button id="viewActiveBtn" class="px-4 py-2 rounded-md font-bold text-sm bg-white shadow text-blue-600">Iscritti Attivi</button>
                             <button id="viewCancelledBtn" class="px-4 py-2 rounded-md font-bold text-sm text-gray-500 hover:text-gray-700">Archivio Cancellazioni</button>
                         </div>
@@ -572,11 +578,20 @@
         async function checkAvailability() {
             try {
                 const snapshot = await getDocs(collection(db, "prenotazioni"));
-                const count = snapshot.size;
+                // Count participants
+                let totalParticipants = 0;
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    totalParticipants += parseInt(data.partecipanti || 1);
+                });
+                
                 const display = document.getElementById('seats-display');
                 const remaining = document.getElementById('remaining-seats');
                 
-                if (count >= MAX_BOOKINGS) {
+                // Update seats display for user if we want (it's hidden in css currently)
+                if(remaining) remaining.innerText = Math.max(0, MAX_BOOKINGS - totalParticipants);
+
+                if (totalParticipants >= MAX_BOOKINGS) {
                     document.getElementById('booking-container').style.display = 'none';
                     document.getElementById('sold-out-msg').classList.remove('hidden');
                     return false;
@@ -840,12 +855,21 @@
         // Stats
         function calculateAndRenderStats(bookings) {
             const counts = {};
-            bookings.forEach(b => { counts[b.indirizzo] = (counts[b.indirizzo] || 0) + 1; });
-            document.getElementById('total-count').innerText = bookings.length;
+            let totalPax = 0;
+            
+            bookings.forEach(b => { 
+                const pax = parseInt(b.partecipanti || 1);
+                totalPax += pax;
+                counts[b.indirizzo] = (counts[b.indirizzo] || 0) + pax; 
+            });
+
+            const totalEl = document.getElementById('total-count');
+            if(totalEl) totalEl.innerText = totalPax;
+            
             const statsList = document.getElementById('stats-list');
             statsList.innerHTML = '';
             for (const [key, value] of Object.entries(counts)) {
-                statsList.innerHTML += `<div class="flex justify-between"><span class="truncate pr-2">${key}:</span> <strong>${value}</strong></div>`;
+                statsList.innerHTML += `<div class="flex justify-between items-center py-1 border-b border-blue-100 last:border-0"><span class="truncate pr-2 text-xs font-bold text-gray-600">${key}</span> <span class="bg-white px-2 py-0.5 rounded text-blue-700 font-bold text-xs shadow-sm">${value}</span></div>`;
             }
         }
 
