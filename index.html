@@ -432,9 +432,6 @@
                     <p class="text-gray-700 text-xs md:text-sm font-bold">
                         Se non riesci a scaricare la ricevuta, <span class="text-blue-600 uppercase font-extrabold bg-blue-50 px-1 rounded">FAI LO SCREENSHOT DELLA SCHERMATA</span> qui a fianco!
                     </p>
-                    <p class="text-gray-500 text-[10px] mt-4 pt-2 border-t font-semibold">
-                        Usa questo codice per recuperare la ricevuta o cancellare la prenotazione tramite le funzioni nel sito.
-                    </p>
                 </div>
 
                 <!-- PULSANTE DOWNLOAD -->
@@ -467,48 +464,63 @@
         <div class="min-h-screen p-4 md:p-8">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col lg:flex-row justify-between items-center mb-8 bg-white p-6 rounded-3xl shadow-sm gap-4">
-                    <div>
-                        <h2 class="text-3xl font-bold text-gray-800">Elenco Iscritti</h2>
-                        <p class="text-gray-500">Totale Prenotazioni: <span id="total-count" class="font-bold text-blue-600 text-xl">0</span></p>
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <h2 class="text-3xl font-bold text-gray-800" id="dash-title">Elenco Iscritti</h2>
+                            <p class="text-gray-500">Totale: <span id="total-count" class="font-bold text-blue-600 text-xl">0</span></p>
+                        </div>
+                        
+                        <!-- Toggle Views -->
+                        <div class="flex bg-gray-100 p-1 rounded-lg">
+                            <button id="viewActiveBtn" class="px-4 py-2 rounded-md font-bold text-sm bg-white shadow text-blue-600">Iscritti Attivi</button>
+                            <button id="viewCancelledBtn" class="px-4 py-2 rounded-md font-bold text-sm text-gray-500 hover:text-gray-700">Archivio Cancellazioni</button>
+                        </div>
                     </div>
                     
                     <!-- Box Statistiche -->
                     <div id="stats-box" class="flex-1 bg-blue-50 p-4 rounded-xl text-sm border border-blue-100 mx-4 w-full lg:w-auto">
-                        <p class="font-bold text-blue-900 mb-2 border-b border-blue-200 pb-1">Iscritti per Indirizzo:</p>
+                        <p class="font-bold text-blue-900 mb-2 border-b border-blue-200 pb-1">Statistiche:</p>
                         <div id="stats-list" class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1 text-gray-700">
                             <!-- Popolato via JS -->
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-2 w-full lg:w-auto">
-                        <!-- Filtro -->
-                        <select id="filter-course" class="px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 outline-none text-sm font-bold text-gray-600">
-                            <option value="all">Mostra Tutti</option>
-                            <option value="Liceo Scienze Applicate">Liceo Scienze Applicate</option>
-                            <option value="Costruzioni, Ambiente e Territorio">CAT</option>
-                            <option value="Relazioni Internazionali">Relazioni Internazionali</option>
-                            <option value="Sistema Moda">Sistema Moda</option>
-                            <option value="Logistica - Corso Quadriennale">Logistica/Quadriennale</option>
-                        </select>
+                        <!-- FILTRO MIGLIORATO: RICERCA E SELECT -->
+                        <div class="flex flex-col gap-2">
+                            <input type="text" id="search-input" placeholder="🔍 Cerca nome, cognome o codice..." class="px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 outline-none text-sm font-bold text-gray-600 w-full">
+                            
+                            <select id="filter-course" class="px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 outline-none text-sm font-bold text-gray-600 w-full">
+                                <option value="all">Tutti gli Indirizzi</option>
+                                <option value="Liceo Scienze Applicate">Liceo Scienze Applicate</option>
+                                <option value="Costruzioni, Ambiente e Territorio">CAT</option>
+                                <option value="Relazioni Internazionali">Relazioni Internazionali</option>
+                                <option value="Sistema Moda">Sistema Moda</option>
+                                <option value="Logistica - Corso Quadriennale">Logistica/Quadriennale</option>
+                            </select>
+                        </div>
 
-                        <div class="flex gap-2 justify-center">
+                        <div class="flex gap-2 justify-center mt-2">
                             <button id="refreshBtn" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg font-bold hover:bg-blue-200 transition">Aggiorna</button>
                             <button id="exportExcelBtn" class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-600 transition">Excel</button>
                             <button id="closeDashboardBtn" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-bold hover:bg-gray-300 transition">Esci</button>
                         </div>
-                        <button id="deleteAllBtn" class="text-xs text-red-400 hover:text-red-600 mt-2 underline text-center">Reset Database</button>
+                        
+                        <!-- PULSANTE RESET DATABASE -->
+                        <button id="deleteAllBtn" class="mt-4 bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center justify-center gap-2">
+                            <i class="fas fa-trash-alt"></i> Reset Database
+                        </button>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left">
-                            <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                            <thead class="bg-gradient-to-r from-blue-600 to-purple-600 text-white" id="table-head">
                                 <tr>
                                     <th class="p-4 text-sm">Codice</th>
                                     <th class="p-4 text-sm">Studente</th>
                                     <th class="p-4 text-sm">Contatti</th>
-                                    <th class="p-4 text-sm">Classe</th>
                                     <th class="p-4 text-sm">Scuola</th>
                                     <th class="p-4 text-sm">Indirizzo</th>
                                     <th class="p-4 text-sm text-center">Azioni</th>
@@ -517,7 +529,7 @@
                             <tbody id="bookings-table-body" class="divide-y divide-gray-100 text-gray-700 text-sm"></tbody>
                         </table>
                     </div>
-                    <div id="no-data-msg" class="p-12 text-center text-gray-400 hidden">Nessuna prenotazione trovata.</div>
+                    <div id="no-data-msg" class="p-12 text-center text-gray-400 hidden">Nessun dato trovato.</div>
                 </div>
             </div>
         </div>
@@ -526,7 +538,7 @@
     <!-- LOGICA E FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, query, orderBy, where, serverTimestamp, deleteDoc, doc, getCountFromServer } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, getDoc, query, orderBy, where, serverTimestamp, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -558,13 +570,13 @@
 
         let currentBookingData = null;
         let allBookingsData = [];
+        let currentViewMode = 'active'; // 'active' or 'cancelled'
 
         // --- CONTROLLO LIMITI ---
         async function checkAvailability() {
             try {
                 const snapshot = await getDocs(collection(db, "prenotazioni"));
                 const count = snapshot.size;
-                
                 const display = document.getElementById('seats-display');
                 const remaining = document.getElementById('remaining-seats');
                 
@@ -595,7 +607,6 @@
         // --- VISUALIZZA OVERLAY ---
         function showSuccessOverlay(data) {
             currentBookingData = data; 
-            
             document.getElementById('paper-code').innerText = data.codice_prenotazione;
             document.getElementById('paper-student').innerText = `${data.cognome} ${data.nome}`;
             document.getElementById('paper-class').innerText = `${data.scuola}`; 
@@ -634,7 +645,6 @@
                 cognome: document.getElementById('cognome').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 cellulare: document.getElementById('cellulare').value.trim(),
-                // Removed Class and Section
                 scuola: document.getElementById('scuola').value.trim(),
                 indirizzo: document.getElementById('indirizzo').value,
                 codice_prenotazione: generatedCode,
@@ -686,7 +696,7 @@
             }
         }
 
-        // --- ANNULLA PRENOTAZIONE UTENTE ---
+        // --- ANNULLA PRENOTAZIONE UTENTE (SPORCA: sposta in cancellati) ---
         window.processUserCancellation = async function() {
             const code = document.getElementById('cancelUserCode').value.trim().toUpperCase();
             const msgDiv = document.getElementById('cancel-user-msg');
@@ -696,7 +706,7 @@
                 return;
             }
 
-            if(!confirm("Sei sicuro di voler annullare la tua prenotazione? Il posto verrà liberato per altri.")) return;
+            if(!confirm("Sei sicuro di voler annullare la tua prenotazione?")) return;
 
             msgDiv.innerHTML = '<span class="text-gray-500"><i class="fas fa-spinner fa-spin"></i> Cancellazione in corso...</span>';
 
@@ -710,14 +720,24 @@
                 }
 
                 const docRef = snapshot.docs[0].ref;
+                const docData = snapshot.docs[0].data();
+
+                // Sposta in archivio
+                await addDoc(collection(db, "prenotazioni_cancellate"), {
+                    ...docData,
+                    data_cancellazione: new Date().toLocaleString('it-IT'),
+                    timestamp_cancellazione: serverTimestamp(),
+                    cancellato_da: 'Genitore/Utente'
+                });
+
+                // Elimina da attivi
                 await deleteDoc(docRef);
 
                 alert("Prenotazione annullata con successo. Grazie per aver liberato il posto!");
                 document.getElementById('cancel-user-modal').classList.add('hidden');
                 document.getElementById('cancelUserCode').value = '';
                 msgDiv.innerHTML = '';
-                
-                checkAvailability(); // Aggiorna stato posti
+                checkAvailability(); 
 
             } catch(e) {
                 console.error(e);
@@ -725,130 +745,73 @@
             }
         }
 
-        // --- GENERAZIONE PDF ---
-        window.downloadReceipt = function() {
-            if(!currentBookingData) return;
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            doc.setDrawColor(30, 58, 138); 
-            doc.setLineWidth(1.5);
-            doc.rect(5, 5, 200, 287);
-
-            doc.setFillColor(30, 58, 138); 
-            doc.rect(5, 5, 200, 50, 'F');
-            
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24); doc.setFont("helvetica", "bold");
-            doc.text("ITSCG \"PRIMO LEVI\"", 105, 25, null, null, "center");
-            
-            doc.setFontSize(12); doc.setFont("helvetica", "normal");
-            doc.text("ISTRUZIONE TECNICA E LICEALE", 105, 35, null, null, "center");
-            
-            doc.setFontSize(10);
-            doc.text("Via Briantina 68, 20831 Seregno (MB)", 105, 45, null, null, "center");
-
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(14);
-            doc.text("CODICE PRENOTAZIONE:", 105, 75, null, null, "center");
-            
-            doc.setFontSize(36); doc.setTextColor(220, 38, 38); doc.setFont("helvetica", "bold");
-            doc.text(currentBookingData.codice_prenotazione || "N/A", 105, 90, null, null, "center");
-
-            doc.setDrawColor(200, 200, 200);
-            doc.setFillColor(245, 247, 250);
-            doc.roundedRect(20, 105, 170, 95, 5, 5, 'FD');
-
-            doc.setTextColor(50, 50, 50); doc.setFontSize(12); doc.setFont("helvetica", "normal");
-            let y = 120;
-            const addLine = (label, value) => {
-                doc.setFont("helvetica", "bold"); doc.text(label, 30, y);
-                doc.setFont("helvetica", "normal"); doc.text(value, 95, y);
-                y += 12;
-            };
-
-            addLine("DATA OPEN DAY:", "9 Maggio 2026");
-            addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
-            addLine("SCUOLA:", `${currentBookingData.scuola}`); 
-            addLine("CONTATTO:", currentBookingData.email);
-            
-            y += 5;
-            doc.setFont("helvetica", "bold"); doc.text("INDIRIZZO SCELTO:", 30, y);
-            doc.setTextColor(37, 99, 235); doc.setFontSize(14);
-            doc.text(currentBookingData.indirizzo, 30, y+8);
-
-            doc.setFillColor(255, 248, 225); 
-            doc.setDrawColor(255, 213, 79); 
-            doc.roundedRect(20, 220, 170, 40, 3, 3, 'FD');
-
-            doc.setTextColor(80, 80, 80);
-            doc.setFontSize(11);
-            doc.setFont("helvetica", "italic");
-            doc.text("Grazie per aver scelto di scoprire la nostra scuola!", 105, 230, null, null, "center");
-            doc.text("Non vediamo l'ora di accogliervi e mostrarvi il vostro futuro.", 105, 237, null, null, "center");
-            
-            doc.setFontSize(12);
-            doc.setFont("helvetica", "bold");
-            doc.setTextColor(30, 58, 138); 
-            doc.text("- Le Referenti Orientamento: Prof.ssa Calabrese & Prof.ssa Corvi", 105, 250, null, null, "center");
-
-            doc.setFontSize(9);
-            doc.setTextColor(150, 150, 150);
-            doc.setFont("helvetica", "normal");
-            doc.text("Si prega di mostrare questa ricevuta all'ingresso.", 105, 280, null, null, "center");
-
-            doc.save(`Ricevuta_Levi_${currentBookingData.cognome}_${currentBookingData.codice_prenotazione}.pdf`);
-
-            const dlMsg = document.getElementById('download-msg');
-            if(dlMsg) dlMsg.classList.remove('hidden');
-            const dlBtn = document.getElementById('downloadBtn');
-            if(dlBtn) dlBtn.style.display = 'none';
-        };
-
-        document.getElementById('downloadBtn').addEventListener('click', window.downloadReceipt);
-
         // --- ADMIN FUNCTIONS ---
-        window.deleteBooking = async function(id) {
-            if(!confirm("Eliminare definitivamente?")) return;
-            try { await deleteDoc(doc(db, "prenotazioni", id)); loadBookings(); } 
-            catch(e) { alert(e.message); }
-        };
+        
+        // Switch View
+        document.getElementById('viewActiveBtn').addEventListener('click', () => { switchView('active'); });
+        document.getElementById('viewCancelledBtn').addEventListener('click', () => { switchView('cancelled'); });
 
-        window.deleteAllBookings = async function() {
-            if(!confirm("CANCELLARE TUTTO IL DATABASE? IRREVERSIBILE.")) return;
-            if(!confirm("SEI SICURO AL 100%?")) return;
+        function switchView(mode) {
+            currentViewMode = mode;
+            const btnActive = document.getElementById('viewActiveBtn');
+            const btnCancelled = document.getElementById('viewCancelledBtn');
+            const head = document.getElementById('table-head').querySelector('tr');
+            
+            if(mode === 'active') {
+                btnActive.className = "px-4 py-2 rounded-md font-bold text-sm bg-white shadow text-blue-600";
+                btnCancelled.className = "px-4 py-2 rounded-md font-bold text-sm text-gray-500 hover:text-gray-700";
+                head.innerHTML = `
+                    <th class="p-4 text-sm">Codice</th>
+                    <th class="p-4 text-sm">Studente</th>
+                    <th class="p-4 text-sm">Contatti</th>
+                    <th class="p-4 text-sm">Scuola</th>
+                    <th class="p-4 text-sm">Indirizzo</th>
+                    <th class="p-4 text-sm text-center">Azioni</th>
+                `;
+            } else {
+                btnActive.className = "px-4 py-2 rounded-md font-bold text-sm text-gray-500 hover:text-gray-700";
+                btnCancelled.className = "px-4 py-2 rounded-md font-bold text-sm bg-white shadow text-red-600";
+                head.innerHTML = `
+                    <th class="p-4 text-sm">Cancellato Il</th>
+                    <th class="p-4 text-sm">Studente</th>
+                    <th class="p-4 text-sm">Indirizzo</th>
+                    <th class="p-4 text-sm">Cancellato Da</th>
+                    <th class="p-4 text-sm text-center">Info</th>
+                `;
+            }
+            loadData();
+        }
+
+        // Delete (Admin) -> Archivia
+        window.deleteBooking = async function(id) {
+            if(!confirm("Archiviare e cancellare questa prenotazione?")) return;
             try {
-                const snap = await getDocs(collection(db, "prenotazioni"));
-                const promises = snap.docs.map(d => deleteDoc(d.ref));
-                await Promise.all(promises);
-                loadBookings();
-                alert("Database svuotato.");
+                const docRef = doc(db, "prenotazioni", id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    await addDoc(collection(db, "prenotazioni_cancellate"), {
+                        ...docSnap.data(),
+                        data_cancellazione: new Date().toLocaleString('it-IT'),
+                        timestamp_cancellazione: serverTimestamp(),
+                        cancellato_da: 'Docente (Admin)'
+                    });
+                    await deleteDoc(docRef);
+                    loadData();
+                }
             } catch(e) { alert(e.message); }
         };
 
-        // --- STATISTICHE E FILTRI ---
-        function calculateAndRenderStats(bookings) {
-            const counts = {};
-            bookings.forEach(b => {
-                counts[b.indirizzo] = (counts[b.indirizzo] || 0) + 1;
-            });
-
-            document.getElementById('total-count').innerText = bookings.length;
-            
-            const statsList = document.getElementById('stats-list');
-            statsList.innerHTML = '';
-            for (const [key, value] of Object.entries(counts)) {
-                statsList.innerHTML += `<div class="flex justify-between"><span class="truncate pr-2">${key}:</span> <strong>${value}</strong></div>`;
-            }
-        }
-
-        async function loadBookings() {
+        // Caricamento Dati Unificato
+        async function loadData() {
             const tbody = document.getElementById('bookings-table-body');
             const noData = document.getElementById('no-data-msg');
-            tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center">Caricamento...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center">Caricamento...</td></tr>';
             
+            const collName = currentViewMode === 'active' ? "prenotazioni" : "prenotazioni_cancellate";
+            const timeField = currentViewMode === 'active' ? "timestamp" : "timestamp_cancellazione";
+
             try {
-                const q = query(collection(db, "prenotazioni"), orderBy("timestamp", "desc"));
+                const q = query(collection(db, collName), orderBy(timeField, "desc"));
                 const snap = await getDocs(q);
                 
                 tbody.innerHTML = '';
@@ -867,48 +830,92 @@
                     });
                     
                     calculateAndRenderStats(allBookingsData);
-                    renderTable(allBookingsData);
+                    applyFilters(); // Applica i filtri iniziali
                 }
             } catch(e) {
                 console.error(e);
-                tbody.innerHTML = `<tr><td colspan="7" class="p-4 text-center text-red-500">Errore: ${e.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-red-500">Errore: ${e.message}</td></tr>`;
+            }
+        }
+
+        // Stats
+        function calculateAndRenderStats(bookings) {
+            const counts = {};
+            bookings.forEach(b => { counts[b.indirizzo] = (counts[b.indirizzo] || 0) + 1; });
+            document.getElementById('total-count').innerText = bookings.length;
+            const statsList = document.getElementById('stats-list');
+            statsList.innerHTML = '';
+            for (const [key, value] of Object.entries(counts)) {
+                statsList.innerHTML += `<div class="flex justify-between"><span class="truncate pr-2">${key}:</span> <strong>${value}</strong></div>`;
             }
         }
 
         function renderTable(data) {
             const tbody = document.getElementById('bookings-table-body');
             tbody.innerHTML = '';
+            
+            if(data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-gray-500">Nessuna corrispondenza trovata.</td></tr>';
+                return;
+            }
+
             data.forEach(b => {
-                const row = `
-                    <tr class="border-b hover:bg-gray-50">
-                        <td class="p-4 font-mono font-bold text-blue-600">${b.codice_prenotazione || '-'}</td>
-                        <td class="p-4 font-bold uppercase">${b.cognome} ${b.nome}</td>
-                        <td class="p-4 text-xs">
-                            <div>${b.email}</div>
-                            <div>${b.cellulare}</div>
-                        </td>
-                        <td class="p-4 text-center">${b.classe}^ ${b.sezione}</td>
-                        <td class="p-4 text-sm truncate max-w-[150px]">${b.scuola}</td>
-                        <td class="p-4 text-sm text-blue-600 font-semibold">${b.indirizzo}</td>
-                        <td class="p-4 text-center">
-                            <button onclick="window.deleteBooking('${b.id}')" class="text-red-500 hover:bg-red-100 p-2 rounded-full transition"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
+                let row = '';
+                if (currentViewMode === 'active') {
+                    row = `
+                        <tr class="border-b hover:bg-gray-50 text-xs md:text-sm">
+                            <td class="p-4 font-mono font-bold text-blue-600">${b.codice_prenotazione || '-'}</td>
+                            <td class="p-4 font-bold uppercase">${b.cognome} ${b.nome}</td>
+                            <td class="p-4">
+                                <div>${b.email}</div>
+                                <div>${b.cellulare}</div>
+                            </td>
+                            <td class="p-4 truncate max-w-[150px]">${b.scuola}</td>
+                            <td class="p-4 text-blue-600 font-semibold">${b.indirizzo}</td>
+                            <td class="p-4 text-center">
+                                <button onclick="window.deleteBooking('${b.id}')" class="text-red-500 hover:bg-red-100 p-2 rounded-full transition" title="Archivia"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    // Vista Cancellati
+                    row = `
+                        <tr class="border-b hover:bg-red-50 text-xs md:text-sm text-gray-500">
+                            <td class="p-4">${b.data_cancellazione}</td>
+                            <td class="p-4 font-bold uppercase strike-through">${b.cognome} ${b.nome}</td>
+                            <td class="p-4 italic">${b.indirizzo}</td>
+                            <td class="p-4 font-bold text-red-600">${b.cancellato_da || '?'}</td>
+                            <td class="p-4 text-center text-xs">
+                                Codice: ${b.codice_prenotazione}
+                            </td>
+                        </tr>
+                    `;
+                }
                 tbody.insertAdjacentHTML('beforeend', row);
             });
         }
 
-        // --- FILTRO LISTENER ---
-        document.getElementById('filter-course').addEventListener('change', (e) => {
-            const val = e.target.value;
-            if (val === 'all') {
-                renderTable(allBookingsData);
-            } else {
-                const filtered = allBookingsData.filter(b => b.indirizzo === val);
-                renderTable(filtered);
-            }
-        });
+        // --- FILTRI INTELLIGENTI ---
+        function applyFilters() {
+            const searchText = document.getElementById('search-input').value.toLowerCase();
+            const courseFilter = document.getElementById('filter-course').value;
+
+            const filtered = allBookingsData.filter(b => {
+                // Filtro per Corso
+                const matchCourse = (courseFilter === 'all') || (b.indirizzo === courseFilter);
+                
+                // Filtro per Testo (Nome, Cognome, Codice)
+                const searchString = `${b.nome} ${b.cognome} ${b.codice_prenotazione}`.toLowerCase();
+                const matchText = searchString.includes(searchText);
+
+                return matchCourse && matchText;
+            });
+
+            renderTable(filtered);
+        }
+
+        document.getElementById('filter-course').addEventListener('change', applyFilters);
+        document.getElementById('search-input').addEventListener('input', applyFilters);
 
         document.getElementById('exportExcelBtn').addEventListener('click', () => {
             if(allBookingsData.length === 0) return alert("Nessun dato.");
@@ -922,20 +929,103 @@
             link.click();
         });
 
+        // --- RESET DATABASE ---
+        window.deleteAllBookings = async function() {
+            if(!confirm("ATTENZIONE CRITICA: Stai per eliminare TUTTI i dati (Attivi e Cancellati). Questa azione è IRREVERSIBILE.")) return;
+            if(!confirm("Sei assolutamente sicuro di voler procedere? Il database verrà svuotato completamente.")) return;
+            
+            const btn = document.getElementById('deleteAllBtn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cancellazione...';
+            btn.disabled = true;
+
+            try {
+                // Delete from Active Collection
+                const q1 = query(collection(db, "prenotazioni"));
+                const snap1 = await getDocs(q1);
+                const p1 = snap1.docs.map(d => deleteDoc(d.ref));
+
+                // Delete from Archive Collection
+                const q2 = query(collection(db, "prenotazioni_cancellate"));
+                const snap2 = await getDocs(q2);
+                const p2 = snap2.docs.map(d => deleteDoc(d.ref));
+
+                await Promise.all([...p1, ...p2]);
+                
+                alert("Database resettato con successo. Tutte le prenotazioni e lo storico sono stati eliminati.");
+                loadData();
+            } catch(e) { 
+                console.error(e);
+                alert("Errore durante il reset: " + e.message); 
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        };
+
         // UI Handlers
         document.getElementById('adminBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.remove('hidden'));
         document.getElementById('closeAdminLoginBtn').addEventListener('click', () => document.getElementById('admin-login-modal').classList.add('hidden'));
         document.getElementById('closeDashboardBtn').addEventListener('click', () => document.getElementById('admin-dashboard').classList.add('hidden'));
-        document.getElementById('refreshBtn').addEventListener('click', loadBookings);
+        document.getElementById('refreshBtn').addEventListener('click', loadData);
         document.getElementById('deleteAllBtn').addEventListener('click', window.deleteAllBookings);
         
         document.getElementById('checkAdminBtn').addEventListener('click', () => {
             if(document.getElementById('adminPass').value === 'admin123') {
                 document.getElementById('admin-login-modal').classList.add('hidden');
                 document.getElementById('admin-dashboard').classList.remove('hidden');
-                loadBookings();
+                loadData(); // Carica dati default
             } else alert("Password errata");
         });
+
+        // PDF Generation (Standard)
+        window.downloadReceipt = function() {
+            if(!currentBookingData) return;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setDrawColor(30, 58, 138); doc.setLineWidth(1.5); doc.rect(5, 5, 200, 287);
+            doc.setFillColor(30, 58, 138); doc.rect(5, 5, 200, 50, 'F');
+            doc.setTextColor(255, 255, 255); doc.setFontSize(24); doc.setFont("helvetica", "bold");
+            doc.text("ITSCG \"PRIMO LEVI\"", 105, 25, null, null, "center");
+            doc.setFontSize(12); doc.setFont("helvetica", "normal");
+            doc.text("ISTRUZIONE TECNICA E LICEALE", 105, 35, null, null, "center");
+            doc.setFontSize(10); doc.text("Via Briantina 68, 20831 Seregno (MB)", 105, 45, null, null, "center");
+
+            doc.setTextColor(0, 0, 0); doc.setFontSize(14);
+            doc.text("CODICE PRENOTAZIONE:", 105, 75, null, null, "center");
+            doc.setFontSize(36); doc.setTextColor(220, 38, 38); doc.setFont("helvetica", "bold");
+            doc.text(currentBookingData.codice_prenotazione || "N/A", 105, 90, null, null, "center");
+
+            doc.setDrawColor(200, 200, 200); doc.setFillColor(245, 247, 250);
+            doc.roundedRect(20, 105, 170, 95, 5, 5, 'FD');
+
+            doc.setTextColor(50, 50, 50); doc.setFontSize(12); doc.setFont("helvetica", "normal");
+            let y = 120;
+            const addLine = (l, v) => { doc.setFont("helvetica", "bold"); doc.text(l, 30, y); doc.setFont("helvetica", "normal"); doc.text(v, 95, y); y += 12; };
+
+            addLine("DATA OPEN DAY:", "9 Maggio 2026");
+            addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
+            addLine("SCUOLA:", `${currentBookingData.scuola}`); 
+            addLine("CONTATTO:", currentBookingData.email);
+            y += 5; doc.setFont("helvetica", "bold"); doc.text("INDIRIZZO SCELTO:", 30, y);
+            doc.setTextColor(37, 99, 235); doc.setFontSize(14); doc.text(currentBookingData.indirizzo, 30, y+8);
+
+            doc.setFillColor(255, 248, 225); doc.setDrawColor(255, 213, 79); doc.roundedRect(20, 220, 170, 40, 3, 3, 'FD');
+            doc.setTextColor(80, 80, 80); doc.setFontSize(11); doc.setFont("helvetica", "italic");
+            doc.text("Grazie per aver scelto di scoprire la nostra scuola!", 105, 230, null, null, "center");
+            doc.text("Non vediamo l'ora di accogliervi e mostrarvi il vostro futuro.", 105, 237, null, null, "center");
+            doc.setFontSize(12); doc.setFont("helvetica", "bold"); doc.setTextColor(30, 58, 138); 
+            doc.text("- Le Referenti Orientamento: Prof.ssa Calabrese & Prof.ssa Corvi", 105, 250, null, null, "center");
+
+            doc.setFontSize(9); doc.setTextColor(150, 150, 150); doc.setFont("helvetica", "normal");
+            doc.text("Si prega di mostrare questa ricevuta all'ingresso.", 105, 280, null, null, "center");
+
+            doc.save(`Ricevuta_Levi_${currentBookingData.cognome}_${currentBookingData.codice_prenotazione}.pdf`);
+            const dlMsg = document.getElementById('download-msg'); if(dlMsg) dlMsg.classList.remove('hidden');
+            const dlBtn = document.getElementById('downloadBtn'); if(dlBtn) dlBtn.style.display = 'none';
+        };
+        document.getElementById('downloadBtn').addEventListener('click', window.downloadReceipt);
 
         // 3D Background - Moving School Logo
         if(typeof THREE !== 'undefined') {
@@ -946,49 +1036,24 @@
             document.getElementById('canvas-container').appendChild(renderer.domElement);
             
             const loader = new THREE.TextureLoader();
-            
-            // LOGIC TO GET LOGO FROM HEADER
             const logoImg = document.getElementById('school-logo-img');
             const logoUrl = logoImg ? logoImg.src : 'https://cdn-icons-png.flaticon.com/512/2602/2602414.png';
 
             loader.load(logoUrl, function(texture){
-                // AUMENTATO DIMENSIONE LOGHI
                 const geometry = new THREE.PlaneGeometry(3.5, 3.5); 
                 const particles = [];
-                // AUMENTATO NUMERO LOGHI DRAMMATICAMENTE
                 for(let i=0; i<50; i++) { 
-                    const material = new THREE.MeshBasicMaterial({
-                        map: texture, 
-                        transparent: true, 
-                        opacity: 0.15
-                    });
+                    const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true, opacity: 0.15 });
                     const mesh = new THREE.Mesh(geometry, material);
-                    
-                    mesh.position.set(
-                        (Math.random() - 0.5) * 30, 
-                        (Math.random() - 0.5) * 20, 
-                        (Math.random() - 0.5) * 10 - 5
-                    );
-                    
+                    mesh.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 10 - 5);
                     mesh.rotation.z = Math.random() * Math.PI;
-                    
-                    mesh.userData = {
-                        vx: (Math.random() - 0.5) * 0.02, 
-                        vy: (Math.random() - 0.5) * 0.02,
-                        vr: (Math.random() - 0.5) * 0.01
-                    };
-                    
-                    scene.add(mesh);
-                    particles.push(mesh);
+                    mesh.userData = { vx: (Math.random() - 0.5) * 0.02, vy: (Math.random() - 0.5) * 0.02, vr: (Math.random() - 0.5) * 0.01 };
+                    scene.add(mesh); particles.push(mesh);
                 }
-                
                 function anim() {
                     requestAnimationFrame(anim);
                     particles.forEach(p => {
-                        p.position.x += p.userData.vx; 
-                        p.position.y += p.userData.vy;
-                        p.rotation.z += p.userData.vr;
-                        
+                        p.position.x += p.userData.vx; p.position.y += p.userData.vy; p.rotation.z += p.userData.vr;
                         if(Math.abs(p.position.x) > 15) p.userData.vx *= -1;
                         if(Math.abs(p.position.y) > 10) p.userData.vy *= -1;
                     });
@@ -996,14 +1061,8 @@
                 }
                 anim();
             });
-
             camera.position.z = 5;
-            
-            window.onresize = () => {
-                camera.aspect = window.innerWidth/window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            };
+            window.onresize = () => { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); };
         }
     </script>
 </body>
