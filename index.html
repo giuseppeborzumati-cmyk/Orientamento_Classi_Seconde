@@ -139,7 +139,7 @@
             <!-- Header e Logo -->
             <div class="text-center mb-6 md:mb-10 relative z-10 pt-8 md:pt-0">
                 <div class="mb-4 md:mb-5 flex justify-center">
-                    <img id="school-logo-img" src="levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
+                    <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
                 </div>
 
                 <div class="space-y-1">
@@ -209,6 +209,8 @@
                             <div>
                                 <p class="text-[10px] md:text-xs text-blue-100 font-bold uppercase tracking-wider">Data Open Day</p>
                                 <p class="text-xl md:text-2xl font-black">9 Maggio 2026</p>
+                                <!-- AGGIUNTO ORARIO SITO -->
+                                <p class="text-sm font-bold text-blue-100 mt-1 uppercase">Dalle 10:00 alle 12:00</p>
                             </div>
                         </div>
                     </div>
@@ -374,7 +376,7 @@
                         <div class="bg-gray-50 p-4 md:p-6 rounded-lg mb-6 md:mb-8 space-y-3 md:space-y-4 border border-gray-200">
                             <div class="flex justify-between border-b border-gray-200 pb-2">
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Data Evento</span>
-                                <span class="font-bold text-gray-800 text-sm md:text-base">9 Maggio 2026</span>
+                                <span class="font-bold text-gray-800 text-sm md:text-base">9 Maggio 2026<br><span class="text-blue-600 text-xs uppercase">Ore 10:00 - 12:00</span></span>
                             </div>
                             <div class="flex justify-between border-b border-gray-200 pb-2">
                                 <span class="font-bold text-gray-500 text-xs md:text-sm uppercase">Studente</span>
@@ -1029,6 +1031,7 @@
             const addLine = (l, v) => { doc.setFont("helvetica", "bold"); doc.text(l, 30, y); doc.setFont("helvetica", "normal"); doc.text(v, 95, y); y += 12; };
 
             addLine("DATA OPEN DAY:", "9 Maggio 2026");
+            addLine("ORARIO:", "10:00 - 12:00"); // Added Time Line
             addLine("STUDENTE:", `${currentBookingData.cognome} ${currentBookingData.nome}`);
             addLine("PARTECIPANTI:", `${currentBookingData.partecipanti}`);
             addLine("SCUOLA:", `${currentBookingData.scuola}`); 
