@@ -77,7 +77,7 @@
             <!-- HEADER -->
             <div class="text-center mb-6 md:mb-10 relative z-10 pt-8 md:pt-0">
                 <div class="mb-4 md:mb-5 flex justify-center">
-                    <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
+                    <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2602/2602414.png'" class="w-24 h-24 md:w-32 md:h-32 object-contain hover:scale-110 transition-transform duration-300 drop-shadow-xl filter">
                 </div>
                 <div class="space-y-1">
                     <h1 class="text-2xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-purple-800 leading-tight">ITSCG "PRIMO LEVI"</h1>
@@ -182,7 +182,7 @@
                                 </select>
                             </div>
                             <div class="pt-4">
-                                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-extrabold py-3 md:py-4 px-6 rounded-xl hover:scale-[1.02] active:scale-95 transition flex items-center justify-center text-lg">
+                                <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-extrabold py-3 md:py-4 px-6 rounded-xl hover:scale-[1.02] active:scale-95 transition flex items-center justify-center">
                                     CONFERMA PRENOTAZIONE <i class="fas fa-paper-plane ml-2"></i>
                                 </button>
                                 <div id="loadingSpinner" class="loader mt-4"></div>
@@ -289,17 +289,14 @@
 
                     <!-- 3 BOX STATISTICHE IN ALTO -->
                     <div class="flex gap-4 w-full lg:w-auto overflow-x-auto pb-2 lg:pb-0">
-                        <!-- BOX BLU (Totale Iscritti) -->
                         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-xl shadow-sm min-w-[140px] text-center">
                             <p class="text-[10px] uppercase font-bold text-blue-600 mb-1">Tot. Iscritti</p>
                             <p class="text-3xl font-black text-blue-800" id="stat-totale-iscritti">0</p>
                         </div>
-                        <!-- BOX VERDE (Ingressi Scansionati) -->
                         <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl shadow-sm min-w-[140px] text-center">
                             <p class="text-[10px] uppercase font-bold text-green-600 mb-1">Entrati</p>
                             <p class="text-3xl font-black text-green-800" id="stat-totale-entrati">0</p>
                         </div>
-                        <!-- BOX ROSSO (Cancellati) -->
                         <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-xl shadow-sm min-w-[140px] text-center">
                             <p class="text-[10px] uppercase font-bold text-red-600 mb-1">Cancellati</p>
                             <p class="text-3xl font-black text-red-800" id="stat-totale-cancellati">0</p>
@@ -369,29 +366,20 @@
                 <!-- VIEW: GRAFICI E STATISTICHE -->
                 <div id="view-charts-container" class="hidden space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Chart 1: Indirizzi -->
                         <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center">
                             <h3 class="font-bold text-gray-800 mb-4 uppercase tracking-wider text-sm"><i class="fas fa-chart-pie text-blue-500 mr-2"></i>Ripartizione per Indirizzo</h3>
-                            <div class="relative w-full max-w-sm aspect-square">
-                                <canvas id="courseChart"></canvas>
-                            </div>
+                            <div class="relative w-full max-w-sm aspect-square"><canvas id="courseChart"></canvas></div>
                         </div>
                         
                         <div class="space-y-6 flex flex-col">
-                            <!-- Chart 2: Demografica -->
                             <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex-1 flex flex-col items-center justify-center">
                                 <h3 class="font-bold text-gray-800 mb-4 uppercase tracking-wider text-sm"><i class="fas fa-users text-purple-500 mr-2"></i>Studenti vs Accompagnatori</h3>
-                                <div class="relative w-full max-w-[200px] aspect-square">
-                                    <canvas id="demoChart"></canvas>
-                                </div>
+                                <div class="relative w-full max-w-[200px] aspect-square"><canvas id="demoChart"></canvas></div>
                             </div>
                             
-                            <!-- Statistiche Scuole -->
                             <div class="bg-gradient-to-br from-blue-900 to-indigo-900 p-6 rounded-3xl shadow-md text-white">
                                 <h3 class="font-bold mb-4 uppercase tracking-wider text-sm border-b border-blue-700 pb-2"><i class="fas fa-school text-yellow-400 mr-2"></i>Top 5 Scuole di Provenienza</h3>
-                                <ul id="top-schools-list" class="space-y-2 text-sm font-semibold opacity-90">
-                                    <li>Caricamento in corso...</li>
-                                </ul>
+                                <ul id="top-schools-list" class="space-y-2 text-sm font-semibold opacity-90"><li>Caricamento in corso...</li></ul>
                             </div>
                         </div>
                     </div>
@@ -428,7 +416,7 @@
                 <!-- Fallback manuale -->
                 <div class="bg-gray-900 p-3 rounded-xl flex gap-2 border border-gray-700">
                     <input type="text" id="manual-scan-input" placeholder="O digita codice manuale..." class="bg-gray-800 text-white px-4 py-2 rounded-lg outline-none border border-gray-600 focus:border-blue-500 uppercase font-mono">
-                    <button onclick="processManualScan()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold"><i class="fas fa-search"></i></button>
+                    <button onclick="window.processManualScan()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold"><i class="fas fa-search"></i></button>
                 </div>
 
                 <div id="scanned-person-data" class="hidden mt-8 bg-white/10 p-6 rounded-3xl border border-white/20 w-full max-w-lg text-center backdrop-blur-sm shadow-2xl">
@@ -454,7 +442,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, getDoc, query, orderBy, where, serverTimestamp, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD9uCY_LTdR7d8AmpoKjFSg7ZvfDHxKGiI",
@@ -476,15 +464,23 @@
         let chartIndirizzi = null;
         let chartDemografia = null;
 
-        signInAnonymously(auth).then(() => {
-            document.getElementById('db-status').innerHTML = '<i class="fas fa-circle text-green-400 mr-1"></i> Database Connesso';
-            document.getElementById('db-status').className = 'text-xs font-bold text-green-400 mb-2';
-            checkAvailability();
+        // Listener Connessione Robusta
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('db-status').innerHTML = '<i class="fas fa-circle text-green-400 mr-1"></i> Database Connesso';
+                document.getElementById('db-status').className = 'text-xs font-bold text-green-400 mb-2';
+                checkAvailability();
+            } else {
+                signInAnonymously(auth).catch(err => {
+                    document.getElementById('db-status').innerHTML = '<i class="fas fa-times text-red-500 mr-1"></i> Errore Database';
+                    alert("Errore connessione database: " + err.message);
+                });
+            }
         });
 
         async function checkAvailability() {
             try {
-                const snapshot = await getDocs(collection(db, "prenotazioni"));
+                const snapshot = await getDocs(query(collection(db, "prenotazioni")));
                 let totalParticipants = 0;
                 snapshot.forEach(d => {
                     const data = d.data();
@@ -509,7 +505,6 @@
             return 'LV' + result; 
         }
 
-        // MOSTRA OVERLAY DI CONFERMA
         window.showSuccessOverlay = function(data) {
             window.currentBookingData = data;
             const paxText = `${data.alunni} Alunni, ${data.accompagnatori} Accomp.`;
@@ -523,12 +518,12 @@
         }
         window.closeOverlay = () => document.getElementById('success-overlay').style.display = 'none';
 
-        // INVIO PRENOTAZIONE
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (!auth.currentUser) return alert("Attendi la connessione al database...");
             const btn = document.getElementById('submitBtn'); btn.disabled = true;
             
-            if (!(await checkAvailability())) return;
+            if (!(await checkAvailability())) { btn.disabled = false; return; }
 
             const formData = {
                 nome: document.getElementById('nome').value.trim(),
@@ -570,7 +565,6 @@
         document.getElementById('refreshBtn').addEventListener('click', () => window.loadData());
         document.getElementById('search-input').addEventListener('input', () => window.applyFilters());
 
-        // Gestione TABS
         const tabTable = document.getElementById('tab-table');
         const tabCharts = document.getElementById('tab-charts');
         const viewTable = document.getElementById('view-table-container');
@@ -588,10 +582,9 @@
             tabTable.className = "px-8 py-2.5 rounded-lg font-bold text-sm text-gray-500 hover:text-gray-800 transition";
             viewCharts.classList.remove('hidden'); viewCharts.classList.add('block');
             viewTable.classList.add('hidden'); viewTable.classList.remove('block');
-            setTimeout(window.renderCharts, 50); // Piccolo delay per far calcolare le dimensioni a ChartJS
+            setTimeout(window.renderCharts, 100); 
         });
 
-        // Toggle Visualizzazione Attivi/Cancellati
         document.getElementById('viewActiveBtn').addEventListener('click', () => {
             currentViewMode = 'active';
             document.getElementById('viewActiveBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm bg-white shadow text-green-700";
@@ -613,15 +606,11 @@
             tbody.innerHTML = '<tr><td colspan="7" class="p-4 text-center"><i class="fas fa-spinner fa-spin text-blue-500"></i> Caricamento in corso...</td></tr>';
             
             try {
-                // Fetch both collections to populate top colored stats correctly
                 const qAct = query(collection(db, "prenotazioni"), orderBy("timestamp", "desc"));
                 const qCanc = query(collection(db, "prenotazioni_cancellate"), orderBy("timestamp_cancellazione", "desc"));
-                
                 const [snapA, snapC] = await Promise.all([getDocs(qAct), getDocs(qCanc)]);
                 
-                activeBookingsData = [];
-                cancelledBookingsData = [];
-
+                activeBookingsData = []; cancelledBookingsData = [];
                 let tIscritti = 0; let tEntrati = 0; let tCancellati = 0;
 
                 snapA.forEach(d => { 
@@ -638,7 +627,6 @@
                     tCancellati += parseInt(b.alunni||1) + parseInt(b.accompagnatori||0);
                 });
 
-                // Aggiorna Box Colori in alto
                 document.getElementById('stat-totale-iscritti').innerText = tIscritti;
                 document.getElementById('stat-totale-entrati').innerText = tEntrati;
                 document.getElementById('stat-totale-cancellati').innerText = tCancellati;
@@ -647,10 +635,7 @@
                 window.applyFilters();
                 if(!viewCharts.classList.contains('hidden')) window.renderCharts();
 
-            } catch(e) { 
-                console.error(e);
-                tbody.innerHTML = `<tr><td colspan="7" class="text-red-500 text-center font-bold">Errore di connessione ai dati.</td></tr>`; 
-            }
+            } catch(e) { tbody.innerHTML = `<tr><td colspan="7" class="text-red-500 text-center font-bold">Errore di connessione ai dati.</td></tr>`; }
         }
 
         window.applyFilters = function() {
@@ -671,12 +656,8 @@
             const noData = document.getElementById('no-data-msg');
             tbody.innerHTML = '';
             
-            if(data.length === 0) {
-                noData.classList.remove('hidden');
-                return;
-            } else {
-                noData.classList.add('hidden');
-            }
+            if(data.length === 0) { noData.classList.remove('hidden'); return; } 
+            else { noData.classList.add('hidden'); }
 
             data.forEach(b => {
                 let row = '';
@@ -686,7 +667,6 @@
                     const statusBadge = b.presente 
                         ? `<span class="bg-green-100 text-green-700 px-2 py-1 rounded-md text-[10px] font-bold border border-green-300 whitespace-nowrap"><i class="fas fa-check"></i> ENTRATO</span>` 
                         : `<span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-md text-[10px] font-bold border border-gray-300 whitespace-nowrap"><i class="fas fa-clock"></i> ATTESA</span>`;
-                    
                     row = `
                         <tr class="border-b hover:bg-blue-50/50 transition">
                             <td class="p-4">${statusBadge}</td>
@@ -722,77 +702,43 @@
             });
         }
 
-        // --- RENDER GRAFICI E STATISTICHE DETTAGLIATE ---
         window.renderCharts = function() {
-            let counts = {};
-            let tAlunni = 0, tAccomp = 0;
-            let scuoleCounts = {};
-
-            // Analizziamo solo gli iscritti attivi per i grafici
+            let counts = {}; let tAlunni = 0; let tAccomp = 0; let scuoleCounts = {};
             activeBookingsData.forEach(b => {
-                const al = parseInt(b.alunni || 1);
-                const ac = parseInt(b.accompagnatori || 0);
-                const pax = al + ac;
-                
-                tAlunni += al;
-                tAccomp += ac;
+                const al = parseInt(b.alunni || 1); const ac = parseInt(b.accompagnatori || 0); const pax = al + ac;
+                tAlunni += al; tAccomp += ac;
                 counts[b.indirizzo] = (counts[b.indirizzo] || 0) + pax;
-                
                 let sName = b.scuola.toUpperCase().trim();
                 scuoleCounts[sName] = (scuoleCounts[sName] || 0) + 1;
             });
 
-            // Chart Indirizzi
-            const ctx1 = document.getElementById('courseChart');
             if(chartIndirizzi) chartIndirizzi.destroy();
-            chartIndirizzi = new Chart(ctx1, {
+            chartIndirizzi = new Chart(document.getElementById('courseChart'), {
                 type: 'pie',
-                data: {
-                    labels: Object.keys(counts),
-                    datasets: [{
-                        data: Object.values(counts),
-                        backgroundColor: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#6366f1'],
-                        borderWidth: 2, borderColor: '#fff'
-                    }]
-                },
+                data: { labels: Object.keys(counts), datasets: [{ data: Object.values(counts), backgroundColor: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#6366f1'], borderWidth: 2, borderColor: '#fff' }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: {font: {family: 'Nunito'}} } } }
             });
 
-            // Chart Demografia
-            const ctx2 = document.getElementById('demoChart');
             if(chartDemografia) chartDemografia.destroy();
-            chartDemografia = new Chart(ctx2, {
+            chartDemografia = new Chart(document.getElementById('demoChart'), {
                 type: 'doughnut',
-                data: {
-                    labels: ['Studenti', 'Accompagnatori'],
-                    datasets: [{
-                        data: [tAlunni, tAccomp],
-                        backgroundColor: ['#2563eb', '#9333ea'],
-                        borderWidth: 2, borderColor: '#fff'
-                    }]
-                },
+                data: { labels: ['Studenti', 'Accompagnatori'], datasets: [{ data: [tAlunni, tAccomp], backgroundColor: ['#2563eb', '#9333ea'], borderWidth: 2, borderColor: '#fff' }] },
                 options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { position: 'bottom', labels: {font: {family: 'Nunito'}} } } }
             });
 
-            // Top Scuole
             const sortedScuole = Object.entries(scuoleCounts).sort((a,b)=> b[1]-a[1]).slice(0,5);
             const sList = document.getElementById('top-schools-list');
             sList.innerHTML = '';
             if(sortedScuole.length === 0) sList.innerHTML = '<li>Nessun dato</li>';
-            sortedScuole.forEach((s, i) => {
-                sList.innerHTML += `<li class="flex justify-between items-center py-1 border-b border-blue-800 last:border-0"><span class="truncate pr-2">${i+1}. ${s[0]}</span> <span class="bg-white/20 px-2 py-0.5 rounded text-xs">${s[1]} prenota.</span></li>`;
-            });
+            sortedScuole.forEach((s, i) => { sList.innerHTML += `<li class="flex justify-between items-center py-1 border-b border-blue-800 last:border-0"><span class="truncate pr-2">${i+1}. ${s[0]}</span> <span class="bg-white/20 px-2 py-0.5 rounded text-xs">${s[1]} prenota.</span></li>`; });
         }
 
-        // --- CANCELLAZIONI E RESET ---
         window.adminDeleteBooking = async function(id) {
             if(!confirm("Cancellare questa prenotazione? Verrà archiviata.")) return;
-            const docRef = doc(db, "prenotazioni", id);
-            const docSnap = await getDoc(docRef);
+            const docRef = doc(db, "prenotazioni", id); const docSnap = await getDoc(docRef);
             if(docSnap.exists()){
                 await addDoc(collection(db, "prenotazioni_cancellate"), { ...docSnap.data(), data_cancellazione: new Date().toLocaleString('it-IT'), timestamp_cancellazione: serverTimestamp(), cancellato_da: 'Docente (Admin)' });
-                await deleteDoc(docRef);
-                window.loadData();
+                await deleteDoc(docRef); window.loadData();
             }
         };
 
@@ -800,91 +746,58 @@
             const code = document.getElementById('cancelUserCode').value.trim().toUpperCase();
             if(!code) return alert("Inserisci il codice");
             if(!confirm("Annullare definitivamente la prenotazione e liberare il posto?")) return;
-            
             const q = query(collection(db, "prenotazioni"), where("codice_prenotazione", "==", code));
             const snap = await getDocs(q);
             if(snap.empty) return alert("Codice Non Trovato!");
-            
             const docRef = snap.docs[0].ref;
             await addDoc(collection(db, "prenotazioni_cancellate"), { ...snap.docs[0].data(), data_cancellazione: new Date().toLocaleString('it-IT'), timestamp_cancellazione: serverTimestamp(), cancellato_da: 'Genitore (Utente)' });
-            await deleteDoc(docRef);
-            alert("Prenotazione Annullata! Grazie.");
-            document.getElementById('cancel-user-modal').classList.add('hidden');
-            checkAvailability();
+            await deleteDoc(docRef); alert("Prenotazione Annullata! Grazie."); document.getElementById('cancel-user-modal').classList.add('hidden'); checkAvailability();
         }
 
-        document.getElementById('deleteAllBtn').addEventListener('click', async () => {
-            if(!confirm("ATTENZIONE CRITICA: Stai per eliminare TUTTI I DATI per sempre. Sei sicuro?")) return;
-            if(!confirm("CONFERMA FINALE: Reset totale del database? Verrà cancellato anche l'archivio.")) return;
+        window.deleteAllBookings = async function() {
+            if(!confirm("ATTENZIONE CRITICA: Eliminare TUTTI I DATI per sempre?")) return;
+            if(!confirm("CONFERMA FINALE: Reset totale del database?")) return;
             document.getElementById('deleteAllBtn').innerHTML = "Cancellazione...";
             try {
-                const q1 = await getDocs(collection(db, "prenotazioni"));
+                const q1 = await getDocs(query(collection(db, "prenotazioni")));
                 const p1 = q1.docs.map(d => deleteDoc(d.ref));
-                const q2 = await getDocs(collection(db, "prenotazioni_cancellate"));
+                const q2 = await getDocs(query(collection(db, "prenotazioni_cancellate")));
                 const p2 = q2.docs.map(d => deleteDoc(d.ref));
                 await Promise.all([...p1, ...p2]);
-                alert("Database resettato completamente.");
-                window.loadData();
+                alert("Database resettato."); window.loadData();
             } catch(e) { alert(e.message); }
             document.getElementById('deleteAllBtn').innerHTML = `<i class="fas fa-trash-alt"></i> Reset Completo Database`;
-        });
+        };
 
         // -----------------------------------------------------
-        // SCANNER INGRESSI (PISTOLOTTO) - LISTENER INVISIBILE
+        // SCANNER INGRESSI (PISTOLOTTO)
         // -----------------------------------------------------
         const scannerInterface = document.getElementById('scanner-interface');
-        document.getElementById('openScannerModeBtn').addEventListener('click', () => { 
-            scannerInterface.classList.remove('hidden'); 
-            resetScannerUI(); 
-        });
-        document.getElementById('closeScannerBtn').addEventListener('click', () => { 
-            scannerInterface.classList.add('hidden'); 
-            window.loadData(); 
-        });
+        document.getElementById('openScannerModeBtn').addEventListener('click', () => { scannerInterface.classList.remove('hidden'); resetScannerUI(); });
+        document.getElementById('closeScannerBtn').addEventListener('click', () => { scannerInterface.classList.add('hidden'); window.loadData(); });
 
-        let barcodeBuffer = ''; 
-        let lastKeyTime = Date.now();
-        
+        let barcodeBuffer = ''; let lastKeyTime = Date.now();
         window.processManualScan = function() {
             const manualCode = document.getElementById('manual-scan-input').value.trim().toUpperCase();
-            if(manualCode) {
-                processEntrance(manualCode);
-                document.getElementById('manual-scan-input').value = '';
-            }
+            if(manualCode) { processEntrance(manualCode); document.getElementById('manual-scan-input').value = ''; }
         }
 
         window.addEventListener('keydown', (e) => {
             if (scannerInterface.classList.contains('hidden')) return;
-            
-            // Ignora se sta scrivendo nel box manuale
-            if (document.activeElement.id === 'manual-scan-input') {
-                if(e.key === 'Enter') window.processManualScan();
-                return; 
-            }
+            if (document.activeElement.id === 'manual-scan-input') { if(e.key === 'Enter') window.processManualScan(); return; }
 
             const currentTime = Date.now();
-            
-            // Se la digitazione è molto veloce (<30ms tra un tasto e l'altro), è sicuramente lo scanner USB
             if (currentTime - lastKeyTime < 30) {
                 const usbStatus = document.getElementById('usb-status');
                 if(!usbStatus.classList.contains('bg-green-600')) {
                     usbStatus.className = "bg-green-600 text-white p-2 text-center text-sm font-bold shadow-md transition-colors duration-300";
                     usbStatus.innerHTML = '<i class="fas fa-check-circle"></i> Scanner USB connesso e in lettura!';
-                    
-                    // Mostra Toast
-                    const toast = document.getElementById('scanner-toast');
-                    toast.classList.add('show');
-                    setTimeout(() => toast.classList.remove('show'), 3000);
+                    const toast = document.getElementById('scanner-toast'); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 3000);
                 }
             }
-
-            if (currentTime - lastKeyTime > 100) barcodeBuffer = ''; // Reset if too slow (human typing outside input)
+            if (currentTime - lastKeyTime > 100) barcodeBuffer = ''; 
             lastKeyTime = currentTime;
-
-            if (e.key === 'Enter') { 
-                if (barcodeBuffer.length > 3) processEntrance(barcodeBuffer.toUpperCase()); 
-                barcodeBuffer = ''; 
-            } 
+            if (e.key === 'Enter') { if (barcodeBuffer.length > 3) processEntrance(barcodeBuffer.toUpperCase()); barcodeBuffer = ''; } 
             else if (e.key.length === 1) { barcodeBuffer += e.key; }
         });
 
@@ -892,17 +805,12 @@
             document.getElementById('scanner-status-icon').innerHTML = '<i class="fas fa-spinner fa-spin text-blue-500"></i>';
             document.getElementById('scanner-status-title').innerText = "Verifica...";
             document.getElementById('scanned-person-data').classList.add('hidden');
-
             try {
                 const q = query(collection(db, "prenotazioni"), where("codice_prenotazione", "==", code));
                 const snap = await getDocs(q);
-                if (snap.empty) {
-                    showScannerError("Codice Sconosciuto!"); addLog(code, "Nessun Riscontro", false); return;
-                }
+                if (snap.empty) { showScannerError("Codice Sconosciuto!"); addLog(code, "Nessun Riscontro", false); return; }
                 const docRef = snap.docs[0].ref; const data = snap.docs[0].data();
-                if (data.presente) {
-                    showScannerWarning(data); addLog(code, `${data.cognome} ${data.nome}`, false, "Già Entrato"); return;
-                }
+                if (data.presente) { showScannerWarning(data); addLog(code, `${data.cognome} ${data.nome}`, false, "Già Entrato"); return; }
                 await updateDoc(docRef, { presente: true, orario_ingresso: new Date().toLocaleTimeString('it-IT') });
                 showScannerSuccess(data); addLog(code, `${data.cognome} ${data.nome}`, true);
             } catch (error) { showScannerError("Errore Database"); }
@@ -910,16 +818,13 @@
 
         function showScannerSuccess(data) {
             document.getElementById('scanner-status-icon').innerHTML = '<i class="fas fa-check-circle text-green-500 shadow-green"></i>';
-            const title = document.getElementById('scanner-status-title');
-            title.innerText = "ACCESSO CONSENTITO"; title.className = "text-5xl font-black text-green-500 mb-2 text-center drop-shadow-lg";
+            document.getElementById('scanner-status-title').innerText = "ACCESSO CONSENTITO"; document.getElementById('scanner-status-title').className = "text-5xl font-black text-green-500 mb-2 text-center drop-shadow-lg";
             document.getElementById('scanner-status-desc').innerText = "Procedere all'ingresso.";
             document.getElementById('scan-nome').innerText = `${data.cognome} ${data.nome}`;
             document.getElementById('scan-scuola').innerHTML = `<i class="fas fa-school mr-1"></i> ${data.scuola}`;
             document.getElementById('scan-indirizzo').innerText = data.indirizzo;
-            
             const al = parseInt(data.alunni || 1); const ac = parseInt(data.accompagnatori || 0);
             document.getElementById('scan-pax').innerText = `Tot: ${al+ac} Persone`;
-            
             document.getElementById('scanned-person-data').classList.remove('hidden');
             scannerInterface.style.backgroundColor = 'rgba(16, 185, 129, 0.2)'; setTimeout(()=> scannerInterface.style.backgroundColor = '', 300);
             setTimeout(resetScannerUI, 3500);
@@ -927,16 +832,14 @@
 
         function showScannerError(msg) {
             document.getElementById('scanner-status-icon').innerHTML = '<i class="fas fa-times-octagon text-red-600"></i>';
-            const title = document.getElementById('scanner-status-title');
-            title.innerText = "ACCESSO NEGATO"; title.className = "text-5xl font-black text-red-500 mb-2 text-center";
+            document.getElementById('scanner-status-title').innerText = "ACCESSO NEGATO"; document.getElementById('scanner-status-title').className = "text-5xl font-black text-red-500 mb-2 text-center";
             document.getElementById('scanner-status-desc').innerText = msg;
             setTimeout(resetScannerUI, 3000);
         }
 
         function showScannerWarning(data) {
             document.getElementById('scanner-status-icon').innerHTML = '<i class="fas fa-exclamation-triangle text-yellow-500"></i>';
-            const title = document.getElementById('scanner-status-title');
-            title.innerText = "GIÀ ENTRATO!"; title.className = "text-4xl font-black text-yellow-400 mb-2 text-center";
+            document.getElementById('scanner-status-title').innerText = "GIÀ ENTRATO!"; document.getElementById('scanner-status-title').className = "text-4xl font-black text-yellow-400 mb-2 text-center";
             document.getElementById('scanner-status-desc').innerText = `Scansionato prima alle: ${data.orario_ingresso}`;
             setTimeout(resetScannerUI, 3500);
         }
@@ -959,20 +862,16 @@
             logArea.insertAdjacentHTML('afterbegin', `<div class="p-3 border-l-4 rounded-r-lg ${col} flex justify-between items-center mb-2"><div><div class="font-bold text-sm uppercase">${name}</div><div class="text-xs opacity-70 font-mono">${code} ${note}</div></div><div class="flex flex-col items-end">${icon}<span class="text-[10px] opacity-50">${time}</span></div></div>`);
         }
 
-        // -----------------------------------------------------
-        // ESPORTAZIONE EXCEL E PDF
-        // -----------------------------------------------------
+        // --- EXPORT ---
         document.getElementById('exportExcelBtn').addEventListener('click', () => {
             const dataToExport = currentViewMode === 'active' ? activeBookingsData : cancelledBookingsData;
-            if(dataToExport.length === 0) return alert("Nessun dato da esportare in questa vista.");
-            
+            if(dataToExport.length === 0) return alert("Nessun dato da esportare.");
             let csv = "data:text/csv;charset=utf-8,";
             if(currentViewMode === 'active'){
                 csv += "Codice;Stato;OrarioIngresso;Cognome;Nome;Email;Cellulare;Scuola;Indirizzo;Studenti;Accompagnatori;Totale\r\n";
                 dataToExport.forEach(r => {
                     const al = parseInt(r.alunni||1); const ac = parseInt(r.accompagnatori||0);
-                    const stato = r.presente ? 'ENTRATO' : 'ATTESA';
-                    csv += `${r.codice_prenotazione};${stato};${r.orario_ingresso||''};${r.cognome};${r.nome};${r.email};${r.cellulare};${r.scuola};${r.indirizzo};${al};${ac};${al+ac}\r\n`;
+                    csv += `${r.codice_prenotazione};${r.presente ? 'ENTRATO' : 'ATTESA'};${r.orario_ingresso||''};${r.cognome};${r.nome};${r.email};${r.cellulare};${r.scuola};${r.indirizzo};${al};${ac};${al+ac}\r\n`;
                 });
             } else {
                 csv += "Codice;DataCancellazione;CancellatoDa;Cognome;Nome;Scuola;Indirizzo;TotalePax\r\n";
@@ -981,25 +880,16 @@
                     csv += `${r.codice_prenotazione};${r.data_cancellazione};${r.cancellato_da};${r.cognome};${r.nome};${r.scuola};${r.indirizzo};${al+ac}\r\n`;
                 });
             }
-            
             const link = document.createElement("a"); link.href = encodeURI(csv); link.download = "OpenDay_Levi_Export.csv"; link.click();
         });
 
-        window.retrieveBooking = async function() {
-            const code = document.getElementById('retrieveCode').value.trim().toUpperCase();
-            if(!code) return alert("Inserisci il codice");
-            const q = query(collection(db, "prenotazioni"), where("codice_prenotazione", "==", code));
-            const snap = await getDocs(q);
-            if(snap.empty) return alert("Codice Non Trovato o Prenotazione Annullata!");
-            document.getElementById('retrieve-modal').classList.add('hidden');
-            window.showSuccessOverlay(snap.docs[0].data());
-        }
+        document.getElementById('filter-course').addEventListener('change', window.applyFilters);
 
+        // --- DOWNLOAD PDF ---
         window.downloadReceipt = function() {
             if(!window.currentBookingData) return;
             const data = window.currentBookingData;
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
-            
             const hiddenCanvas = document.getElementById('hidden-barcode-canvas');
             JsBarcode(hiddenCanvas, data.codice_prenotazione, { format: "CODE128", displayValue: false, margin: 0 });
             
@@ -1028,7 +918,7 @@
             doc.save(`Ricevuta_Levi_${data.cognome}.pdf`);
         };
 
-        // 3D Background - Moving School Logo
+        // --- BACKGROUND 3D ---
         if(typeof THREE !== 'undefined') {
             const scene = new THREE.Scene(); const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({alpha:true, antialias:true}); renderer.setSize(window.innerWidth, window.innerHeight);
@@ -1050,6 +940,18 @@
                     });
                     renderer.render(scene, camera);
                 } anim();
+            }, undefined, function() {
+                // Fallback Se l'immagine Levi.png manca
+                const geometry = new THREE.IcosahedronGeometry(1.5, 0); const particles = [];
+                for(let i=0; i<30; i++) { 
+                    const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color: 0x4f46e5, transparent: true, opacity: 0.2, flatShading:true}));
+                    mesh.position.set((Math.random() - 0.5) * 30, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 10 - 5);
+                    mesh.userData = { vx: (Math.random() - 0.5) * 0.02, vy: (Math.random() - 0.5) * 0.02 };
+                    scene.add(mesh); particles.push(mesh);
+                }
+                const l1 = new THREE.PointLight(0xffffff, 1); l1.position.set(10, 10, 10); scene.add(l1);
+                scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+                function anim() { requestAnimationFrame(anim); particles.forEach(p => { p.position.x += p.userData.vx; p.position.y += p.userData.vy; p.rotation.x += 0.01; p.rotation.y += 0.01; if(Math.abs(p.position.x) > 15) p.userData.vx *= -1; if(Math.abs(p.position.y) > 10) p.userData.vy *= -1; }); renderer.render(scene, camera); } anim();
             });
             camera.position.z = 5;
             window.onresize = () => { camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); };
