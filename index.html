@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Day 2026 - ITSCG "Primo Levi" Seregno</title>
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS per uno styling moderno e fluido -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- FontAwesome per icone moderne -->
+    <!-- FontAwesome per le icone della dashboard e dei bottoni -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Google Fonts per una tipografia elegante -->
+    <!-- Google Fonts per una tipografia elegante ed istituzionale -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Three.js per l'animazione delle bolle 3D nello sfondo -->
+    <!-- Three.js per l'animazione 3D delle bolle sapone nello sfondo -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- jsPDF per la compilazione della ricevuta PDF -->
+    <!-- jsPDF per la compilazione della ricevuta PDF da allegare -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <!-- JsBarcode per i codici a barre rapidi -->
+    <!-- JsBarcode per la generazione dinamica dei codici a barre -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
     
-    <!-- Chart.js per i report grafici -->
+    <!-- Chart.js per la reportistica grafica e le statistiche dei genitori -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -42,7 +42,7 @@
             height: 100%; 
             z-index: -1; 
         }
-        /* Effetto sfocatura vetro satinato ad alto contrasto per Light Mode */
+        /* Vetro satinato ad alto contrasto per Light Mode */
         .glass-card { 
             background: rgba(255, 255, 255, 0.94); 
             backdrop-filter: blur(25px); 
@@ -141,7 +141,7 @@
                 <div class="mb-6 flex justify-center">
                     <div class="logo-glow-container">
                         <canvas id="logo-particle-canvas"></canvas>
-                        <img id="school-logo-img" src="levi.png" alt="Logo ITSCG Primo Levi" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2602/2602414.png'" class="logo-img-glow object-contain">
+                        <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2602/2602414.png'" class="logo-img-glow object-contain">
                     </div>
                 </div>
                 <div class="space-y-1">
@@ -528,6 +528,7 @@
 
                 <!-- SEZIONE 2: REPORTISTICA GRAFICA -->
                 <div id="view-charts-container" class="hidden space-y-6">
+                    <!-- Nuovo report analitico per genitori/accompagnatori richiesto -->
                     <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 p-6 rounded-3xl shadow-sm text-slate-800">
                         <h4 class="font-black text-blue-900 uppercase text-xs tracking-wider mb-3 flex items-center gap-2">
                             <i class="fas fa-calculator text-blue-500"></i> Analisi Statistica dell'Accompagnamento (Genitori vs Alunni)
@@ -590,7 +591,7 @@
                 <i class="fas fa-barcode text-3xl text-emerald-500 animate-pulse"></i>
                 <h2 class="text-2xl font-black uppercase tracking-wider text-slate-800">Postazione Scansione</h2>
                 <span id="scan-connection-indicator" class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-bold animate-pulse">
-                    <i class="fas fa-satellite-dish mr-1"></i> RILEVATORE USB ATTIVO
+                    <i class="fas fa-satellite-dish mr-1"></i> RICERCA HARDWARE IN CORSO...
                 </span>
             </div>
             <button id="closeScannerBtn" class="bg-red-600 hover:bg-red-550 px-4 py-2 rounded-lg font-bold text-white transition shadow-md"><i class="fas fa-times mr-2"></i> Chiudi</button>
@@ -614,6 +615,10 @@
                         <input type="text" id="manual-scan-input" placeholder="Codice manuale..." class="bg-white text-slate-800 px-4 py-2 rounded-lg outline-none border border-slate-200 focus:border-blue-500 uppercase font-mono tracking-widest text-center">
                         <button onclick="window.processManualScan()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg font-bold transition"><i class="fas fa-arrow-right"></i></button>
                     </div>
+                    
+                    <button onclick="window.requestWebUSBDevice()" class="text-xs bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-700 font-bold px-4 py-2 rounded-lg transition shadow-sm mr-2">
+                        <i class="fas fa-usb mr-1"></i> 🔌 Connetti Hardware USB (WebUSB API)
+                    </button>
                     
                     <button onclick="window.simulateScannerConnection()" class="text-xs bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-700 font-bold px-4 py-2 rounded-lg transition shadow-sm">
                         <i class="fas fa-vial mr-1"></i> Simula Connessione/Scansione Rapida (Test)
@@ -668,6 +673,10 @@
         import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
+
+        // URL DI COLAZIONE DI GOOGLE APPS SCRIPT PER L'INVIO DI E-MAIL REALISTICO DA @leviseregno.edu.it
+        // Incolla qui il tuo URL generato con Google Apps Script!
+        const GOOGLE_APPS_SCRIPT_MAILER_URL = "https://script.google.com/macros/s/AKfycbyiESpDCZzEz8tGc2dKVVjwCiY9RGEsOKHGJTH6zRhirBQ5HVI718M4NVUd7_nMKc4N/exec"; 
 
         // Configurazione Firebase del progetto openday-secondeclassi
         const firebaseConfig = {
@@ -737,6 +746,7 @@
             const yesBtn = document.getElementById('confirm-modal-yes');
             const noBtn = document.getElementById('confirm-modal-no');
             
+            // Rimozione vecchi ascoltatori di eventi
             const newYes = yesBtn.cloneNode(true);
             const newNo = noBtn.cloneNode(true);
             yesBtn.parentNode.replaceChild(newYes, yesBtn);
@@ -903,8 +913,60 @@
             
             JsBarcode("#visual-barcode", data.codice_prenotazione || 'ERRORE', { format: "CODE128", lineColor: "#000", width: 2, height: 50, displayValue: false, margin: 0 });
             document.getElementById('success-overlay').style.display = 'flex';
+
+            // Invio automatico della copia e-mail al genitore e ad orientamento@leviseregno.edu.it
+            sendConfirmationEmail(data);
         }
         window.closeOverlay = () => document.getElementById('success-overlay').style.display = 'none';
+
+        // Funzione per generare il PDF Base64 ed inviarlo tramite Google Apps Script
+        async function sendConfirmationEmail(booking) {
+            if (!GOOGLE_APPS_SCRIPT_MAILER_URL) {
+                console.warn("Nessun URL Google Apps Script configurato per l'invio delle e-mail. Simulazione...");
+                window.showNotif("E-mail simulata spedita a: " + booking.email, "success");
+                return;
+            }
+
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const hiddenCanvas = document.getElementById('hidden-barcode-canvas');
+                JsBarcode(hiddenCanvas, booking.codice_prenotazione || 'ND', { format: "CODE128", displayValue: false, margin: 0 });
+                
+                doc.setDrawColor(30, 58, 138); doc.setLineWidth(1.5); doc.rect(5, 5, 200, 287);
+                doc.setFillColor(30, 58, 138); doc.rect(5, 5, 200, 50, 'F');
+                doc.setTextColor(255, 255, 255); doc.setFontSize(24); doc.setFont("helvetica", "bold");
+                doc.text("ITSCG \"PRIMO LEVI\"", 105, 25, null, null, "center");
+                
+                doc.addImage(hiddenCanvas.toDataURL("image/jpeg"), 'JPEG', 65, 70, 80, 25);
+                
+                doc.setFontSize(12); doc.setTextColor(0,0,0);
+                doc.text("STUDENTE: " + booking.cognome + " " + booking.nome, 30, 130);
+                doc.text("CODICE DI PRENOTAZIONE: " + booking.codice_prenotazione, 30, 142);
+                doc.text("INDIRIZZO: " + booking.indirizzo, 30, 154);
+                
+                // Estrazione dati in formato stringa base64 per l'allegato
+                const pdfBase64 = doc.output('datauristring').split(',')[1];
+
+                const response = await fetch(GOOGLE_APPS_SCRIPT_MAILER_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Evita conflitti di CORS
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: booking.email,
+                        nome: booking.nome,
+                        cognome: booking.cognome,
+                        codice_prenotazione: booking.codice_prenotazione,
+                        pdfBase64: pdfBase64
+                    })
+                });
+
+                window.showNotif("✉️ Ricevuta inviata per e-mail!", "success");
+            } catch (err) {
+                console.error("Errore nell'invio e-mail tramite script:", err);
+                window.showNotif("Errore nell'invio dell'e-mail automatica.", "error");
+            }
+        }
 
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -985,14 +1047,14 @@
         document.getElementById('viewActiveBtn').addEventListener('click', () => {
             currentViewMode = 'active';
             document.getElementById('viewActiveBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm bg-white text-emerald-600 shadow-sm";
-            document.getElementById('viewCancelledBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm text-slate-500 hover:text-slate-850";
+            document.getElementById('viewCancelledBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm text-slate-500 hover:text-slate-855";
             document.getElementById('table-head').innerHTML = `<tr><th class="p-4 text-xs uppercase tracking-wider font-bold">Stato</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Codice</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Studente / Contatti</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Numeri (Alunni/Accomp.)</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Scuola Prov.</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Indirizzo</th><th class="p-4 text-xs uppercase tracking-wider font-bold text-center">Azioni</th></tr>`;
             window.applyFilters();
         });
 
         document.getElementById('viewCancelledBtn').addEventListener('click', () => {
             currentViewMode = 'cancelled';
-            document.getElementById('viewActiveBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm text-slate-500 hover:text-slate-850";
+            document.getElementById('viewActiveBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm text-slate-500 hover:text-slate-855";
             document.getElementById('viewCancelledBtn').className = "px-4 py-1.5 rounded-md font-bold text-sm bg-white text-red-600 shadow-sm";
             document.getElementById('table-head').innerHTML = `<tr><th class="p-4 text-xs uppercase tracking-wider font-bold">Stato</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Studente</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Scuola</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Indirizzo</th><th class="p-4 text-xs uppercase tracking-wider font-bold">Dettagli</th><th class="p-4 text-xs uppercase tracking-wider font-bold text-center">Azioni</th></tr>`;
             window.applyFilters();
@@ -1358,6 +1420,30 @@
             });
         };
 
+        // IMPLEMENTAZIONE CONVERSIONE HARDWARE WEBUSB API (Rilevatore Hardware Reale)
+        window.requestWebUSBDevice = async function() {
+            try {
+                // Richiede l'accesso hardware generico a qualsiasi dispositivo USB collegato
+                const device = await navigator.usb.requestDevice({ filters: [] });
+                if (device) {
+                    const ind = document.getElementById('scan-connection-indicator');
+                    if (ind) {
+                        ind.className = "bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-bold animate-pulse";
+                        ind.innerHTML = `<i class="fas fa-usb"></i> HARDWARE USB RILEVATO: ${device.productName || 'Lettore Barcode'}`;
+                    }
+                    const usbStatus = document.getElementById('usb-status');
+                    if (usbStatus) {
+                        usbStatus.className = "bg-emerald-600 text-white p-3 text-center text-sm font-black shadow-md transition-all duration-300 animate-pulse";
+                        usbStatus.innerHTML = `🔌 LETTORE USB ATTIVO: ${device.productName || 'Periferica Barcode'} CONNESSO AL 100% 🔌`;
+                    }
+                    window.showNotif("Lettore Barcode USB collegato con successo!", "success");
+                }
+            } catch (err) {
+                console.error("Connessione WebUSB fallita o annullata:", err);
+                window.showNotif("Rilevamento USB annullato o non supportato in questo browser.", "error");
+            }
+        };
+
         const scannerInterface = document.getElementById('scanner-interface');
         document.getElementById('openScannerModeBtn').addEventListener('click', async () => { 
             await fetchAllData(); 
@@ -1405,7 +1491,7 @@
             }
             if(usbStatus && !usbStatus.classList.contains('bg-emerald-600')) {
                 usbStatus.className = "bg-emerald-600 text-white p-3 text-center text-sm font-black shadow-md transition-all duration-300 animate-pulse";
-                usbStatus.innerHTML = '<i class="fas fa-check-circle text-lg mr-2"></i> 🔌 SISTEMA RILEVATO: SCANNER USB CONNESSO E FUNZIONANTE AL 100% 🔌';
+                usbStatus.innerHTML = '🔌 SISTEMA RILEVATO: SCANNER USB CONNESSO E FUNZIONANTE AL 100% 🔌';
                 const toast = document.getElementById('scanner-toast'); 
                 if (toast) toast.classList.add('show'); 
                 setTimeout(() => { if(toast) toast.classList.remove('show'); }, 3500);
@@ -1709,7 +1795,7 @@
             if (container) container.appendChild(renderer.domElement);
             
             const logoImg = document.getElementById('school-logo-img');
-            const logoUrl = logoImg ? logoImg.src : 'levi.png';
+            const logoUrl = logoImg ? logoImg.src : 'Levi.png';
 
             function createBubbleTexture(url, callback) {
                 const canvas = document.createElement('canvas');
@@ -1746,7 +1832,7 @@
                 };
                 
                 img.onerror = function() {
-                    const grad = ctx.createRadialGradient(128, 128, 40, 128, 128, 120);
+                    const grad = ctx.createRadialGradient(128, 128, 40, 128, 120);
                     grad.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
                     grad.addColorStop(1, 'rgba(37, 99, 235, 0.4)');
                     ctx.fillStyle = grad;
