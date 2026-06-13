@@ -141,7 +141,7 @@
                 <div class="mb-6 flex justify-center">
                     <div class="logo-glow-container">
                         <canvas id="logo-particle-canvas"></canvas>
-                        <img id="school-logo-img" src="Levi.png" alt="Logo ITSCG Primo Levi" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2602/2602414.png'" class="logo-img-glow object-contain">
+                        <img id="school-logo-img" src="levi.png" alt="Logo ITSCG Primo Levi" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2602/2602414.png'" class="logo-img-glow object-contain">
                     </div>
                 </div>
                 <div class="space-y-1">
@@ -1709,7 +1709,7 @@
             if (container) container.appendChild(renderer.domElement);
             
             const logoImg = document.getElementById('school-logo-img');
-            const logoUrl = logoImg ? logoImg.src : 'Levi.png';
+            const logoUrl = logoImg ? logoImg.src : 'levi.png';
 
             function createBubbleTexture(url, callback) {
                 const canvas = document.createElement('canvas');
